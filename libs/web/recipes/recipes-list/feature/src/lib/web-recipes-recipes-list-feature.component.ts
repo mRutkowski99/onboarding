@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { WebRecipesRecipesListUiRecipesFilterComponent } from '@onboarding/web/recipes/recipes-list/ui-recipes-filter';
 import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import { SharedUiRecipeListItemComponent } from '@onboarding/shared/ui-recipe-list-item';
+import { SharedUiLoadingComponent } from '@onboarding/shared/ui-loading';
 
 @Component({
   selector: 'onboarding-feature-recipes-list',
@@ -18,6 +19,7 @@ import { SharedUiRecipeListItemComponent } from '@onboarding/shared/ui-recipe-li
     MatButtonModule,
     WebRecipesRecipesListUiRecipesFilterComponent,
     SharedUiRecipeListItemComponent,
+    SharedUiLoadingComponent,
   ],
   templateUrl: './web-recipes-recipes-list-feature.component.html',
   styleUrls: ['./web-recipes-recipes-list-feature.component.scss'],

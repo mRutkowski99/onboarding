@@ -17,7 +17,9 @@
         "inlineStyleLanguage": "scss",
         "assets": ["apps/web/src/favicon.ico", "apps/web/src/assets"],
         "styles": [
-          { "input": "apps/web/src/theme.scss" },
+          {
+            "input": "apps/web/src/theme.scss"
+          },
           "apps/web/src/styles.scss"
         ],
         "scripts": []

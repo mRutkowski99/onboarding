@@ -19,8 +19,12 @@
         "libs/shared/data-access/src/index.ts"
       ],
       "@onboarding/shared/domain": ["libs/shared/domain/src/index.ts"],
+      "@onboarding/shared/util": ["libs/shared/util/src/index.ts"],
       "@onboarding/web/recipes/recipes-list/data-access": [
         "libs/web/recipes/recipes-list/data-access/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipes-list/util": [
+        "libs/web/recipes/recipes-list/util/src/index.ts"
       ],
       "@onboarding/web/recipes/shell": ["libs/web/recipes/shell/src/index.ts"],
       "@onboarding/web/shared/navbar/feature": [

@@ -24,4 +24,8 @@
   <onboarding-ui-loading *ngIf="vm.status === 'loading'"
     >Loading...</onboarding-ui-loading
   >
+
+  <onboarding-ui-error *ngIf="vm.status === 'error'" (reload)="onReload()">{{
+    vm.error
+  }}</onboarding-ui-error>
 </ng-container>

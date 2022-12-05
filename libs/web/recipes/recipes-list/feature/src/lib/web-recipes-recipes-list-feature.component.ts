@@ -9,6 +9,7 @@ import { WebRecipesRecipesListUiRecipesFilterComponent } from '@onboarding/web/r
 import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import { SharedUiRecipeListItemComponent } from '@onboarding/shared/ui-recipe-list-item';
 import { SharedUiLoadingComponent } from '@onboarding/shared/ui-loading';
+import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
 
 @Component({
   selector: 'onboarding-feature-recipes-list',
@@ -20,6 +21,7 @@ import { SharedUiLoadingComponent } from '@onboarding/shared/ui-loading';
     WebRecipesRecipesListUiRecipesFilterComponent,
     SharedUiRecipeListItemComponent,
     SharedUiLoadingComponent,
+    SharedUiErrorComponent,
   ],
   templateUrl: './web-recipes-recipes-list-feature.component.html',
   styleUrls: ['./web-recipes-recipes-list-feature.component.scss'],
@@ -53,5 +55,9 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
 
   onSelected(id: string) {
     console.log(id);
+  }
+
+  onReload() {
+    this.store.getRecipesList();
   }
 }

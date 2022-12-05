@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { RecipesListFilterType } from '@onboarding/web/recipes/recipes-list/util';
+import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import { combineLatest, map } from 'rxjs';
 import { RecipesListActions } from './recipes-list.actions';
 import { RecipesListState } from './recipes-list.reducer';
 import { RecipesListSelectors } from './recipes-list.selectors';
 
 @Injectable()
-export class RecipesListFacade {
+export class RecipesListStoreFacade {
   constructor(private store: Store<RecipesListState>) {}
 
   vm$ = combineLatest([
@@ -15,6 +15,11 @@ export class RecipesListFacade {
     this.store.select(RecipesListSelectors.errorMessageSelector),
     this.store.select(RecipesListSelectors.statusSelector),
   ]).pipe(map(([recipes, error, status]) => ({ recipes, error, status })));
+
+  filter$ = combineLatest([
+    this.store.select(RecipesListSelectors.filterSelector),
+    this.store.select(RecipesListSelectors.filterTypeSelector),
+  ]).pipe(map(([filter, filterType]) => ({ filter, filterType })));
 
   getRecipesList() {
     this.store.dispatch(RecipesListActions.getRecipesList());
@@ -28,7 +33,7 @@ export class RecipesListFacade {
     this.store.dispatch(RecipesListActions.provideFilter({ filter }));
   }
 
-  provideFilterType(filterType: RecipesListFilterType) {
+  provideFilterType(filterType: RecipesListFilterTypeEnum) {
     this.store.dispatch(RecipesListActions.provideFilterType({ filterType }));
   }
 }

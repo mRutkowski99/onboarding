@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions } from '@ngrx/effects';
-import { createEffect, ofType } from '@ngrx/effects/src';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+import { pessimisticUpdate } from '@nrwl/angular';
 import { fetch } from '@nrwl/angular';
-import { pessimisticUpdate } from '@nrwl/angular/src/runtime/nx/data-persistence';
 import { map } from 'rxjs';
 import { RecipeListDataService } from '../services/recipe-list-data.service';
 import { RecipesListActions } from './recipes-list.actions';

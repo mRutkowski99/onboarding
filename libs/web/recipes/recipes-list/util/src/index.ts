@@ -1,1 +1,1 @@
-export * from './lib/recipe-list-filter-type.type';
+export * from './lib/recipe-list-filter-type.enum';

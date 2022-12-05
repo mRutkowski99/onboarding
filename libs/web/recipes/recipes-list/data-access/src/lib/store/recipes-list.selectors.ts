@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Recipe } from '@onboarding/shared/domain';
-import { RecipesListFilterType } from '@onboarding/web/recipes/recipes-list/util';
+import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import {
   RecipesListState,
   RECIPES_LIST_FEATURE_KEY,
@@ -30,14 +30,19 @@ export class RecipesListSelectors {
     (state) => state.filter
   );
 
+  static filterTypeSelector = createSelector(
+    this.featureSelector,
+    (state) => state.filterType
+  );
+
   private static filterRecipes(
     recipes: Recipe[] | null,
     filter: string,
-    filterType: RecipesListFilterType
+    filterType: RecipesListFilterTypeEnum
   ): Recipe[] {
     if (recipes === null) return [];
 
-    if (filterType === 'name')
+    if (filterType === RecipesListFilterTypeEnum.Name)
       return recipes.filter((recipe) =>
         recipe.name.toLowerCase().includes(filter)
       );

@@ -1,14 +1,14 @@
-import { createReducer, on } from '@ngrx/store/src';
+import { createReducer, on } from '@ngrx/store';
 import { Recipe } from '@onboarding/shared/domain';
 import { GenericState } from '@onboarding/shared/util';
-import { RecipesListFilterType } from '@onboarding/web/recipes/recipes-list/util';
+import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import { RecipesListActions } from './recipes-list.actions';
 
 export const RECIPES_LIST_FEATURE_KEY = 'recipesList';
 
 export interface RecipesListState extends GenericState<Recipe[]> {
   filter: string;
-  filterType: RecipesListFilterType;
+  filterType: RecipesListFilterTypeEnum;
 }
 
 const initialState: RecipesListState = {
@@ -16,7 +16,7 @@ const initialState: RecipesListState = {
   status: 'loading',
   error: null,
   filter: '',
-  filterType: 'name',
+  filterType: RecipesListFilterTypeEnum.Name,
 };
 
 export const recipesListReducer = createReducer(

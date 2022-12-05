@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Recipe } from '@onboarding/shared/domain';
-import { RecipesListFilterType } from '@onboarding/web/recipes/recipes-list/util';
+import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 
 enum Types {
   GetRecipesList = '[Recipes List] Get Recipes List',
@@ -36,6 +36,6 @@ export class RecipesListActions {
 
   static provideFilterType = createAction(
     Types.ProvideFilterType,
-    props<{ filterType: RecipesListFilterType }>()
+    props<{ filterType: RecipesListFilterTypeEnum }>()
   );
 }

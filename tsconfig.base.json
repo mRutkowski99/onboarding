@@ -23,6 +23,12 @@
       "@onboarding/web/recipes/recipes-list/data-access": [
         "libs/web/recipes/recipes-list/data-access/src/index.ts"
       ],
+      "@onboarding/web/recipes/recipes-list/feature": [
+        "libs/web/recipes/recipes-list/feature/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipes-list/ui-recipes-filter": [
+        "libs/web/recipes/recipes-list/ui-recipes-filter/src/index.ts"
+      ],
       "@onboarding/web/recipes/recipes-list/util": [
         "libs/web/recipes/recipes-list/util/src/index.ts"
       ],

@@ -36,7 +36,8 @@ export class WebRecipesRecipesListUiRecipesFilterComponent {
   });
   filterTypeEnum = RecipesListFilterTypeEnum;
 
-  @Input() filterType!: RecipesListFilterTypeEnum;
+  @Input() filterType: RecipesListFilterTypeEnum =
+    RecipesListFilterTypeEnum.Name;
 
   @Output() filterTypeChange = new EventEmitter<RecipesListFilterTypeEnum>();
   @Output() filterChange = this.form.controls.filterPhrase.valueChanges.pipe(

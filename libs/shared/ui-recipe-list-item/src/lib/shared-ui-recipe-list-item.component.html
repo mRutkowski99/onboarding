@@ -1,0 +1,27 @@
+<mat-card *ngIf="recipe !== undefined" [ngClass]="{ highlight: isSelected }">
+  <mat-card-content (click)="onSelect()">
+    <span>{{ recipe.name }}</span>
+    <div class="btn-container">
+      <button
+        clickStopPropagation
+        mat-mini-fab
+        color="accent"
+        aria-label="Edit recipe button"
+        matTooltip="Edit recipe"
+        (click)="onEdit()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        clickStopPropagation
+        mat-mini-fab
+        color="warn"
+        aria-label="Delete recipe button"
+        matTooltip="Delete recipe"
+        (click)="onDelete()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

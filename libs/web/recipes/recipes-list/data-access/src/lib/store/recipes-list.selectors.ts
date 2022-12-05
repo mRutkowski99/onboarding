@@ -25,6 +25,11 @@ export class RecipesListSelectors {
     (state) => state.error
   );
 
+  static selectedItemSelector = createSelector(
+    this.featureSelector,
+    (state) => state.selectedItem
+  );
+
   static filterSelector = createSelector(
     this.featureSelector,
     (state) => state.filter

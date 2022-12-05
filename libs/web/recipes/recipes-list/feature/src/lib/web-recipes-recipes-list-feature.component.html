@@ -1,8 +1,23 @@
 <button mat-raised-button color="primary">Add new recipe</button>
+
 <ng-container *ngIf="filter$ | async as filter">
   <onboarding-ui-recipes-filter
     [filterType]="filter.filterType"
     (filterChange)="onFilterChange($event)"
     (filterTypeChange)="onFilterTypeChange($event)"
   ></onboarding-ui-recipes-filter>
+</ng-container>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <ul>
+    <li *ngFor="let recipe of vm.recipes">
+      <onboarding-ui-recipe-list-item
+        [recipe]="recipe"
+        [isSelected]="vm.selectedId === recipe._id"
+        (delete)="onDelete($event)"
+        (edit)="onEdit($event)"
+        (selected)="onSelected($event)"
+      ></onboarding-ui-recipe-list-item>
+    </li>
+  </ul>
 </ng-container>

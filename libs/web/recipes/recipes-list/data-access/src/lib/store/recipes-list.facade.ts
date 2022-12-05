@@ -14,7 +14,15 @@ export class RecipesListStoreFacade {
     this.store.select(RecipesListSelectors.recipesListSelector),
     this.store.select(RecipesListSelectors.errorMessageSelector),
     this.store.select(RecipesListSelectors.statusSelector),
-  ]).pipe(map(([recipes, error, status]) => ({ recipes, error, status })));
+    this.store.select(RecipesListSelectors.selectedItemSelector),
+  ]).pipe(
+    map(([recipes, error, status, selectedId]) => ({
+      recipes,
+      error,
+      status,
+      selectedId,
+    }))
+  );
 
   filter$ = combineLatest([
     this.store.select(RecipesListSelectors.filterSelector),
@@ -27,6 +35,10 @@ export class RecipesListStoreFacade {
 
   deleteRecipe(id: string) {
     this.store.dispatch(RecipesListActions.deleteRecipe({ id }));
+  }
+
+  selectItem(id: string) {
+    this.store.dispatch(RecipesListActions.selectItem({ id }));
   }
 
   provideFilter(filter: string) {

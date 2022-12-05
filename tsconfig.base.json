@@ -14,7 +14,16 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@onboarding/web/recipes/shell": ["libs/web/recipes/shell/src/index.ts"],
+      "@onboarding/web/shared/navbar/feature": [
+        "libs/web/shared/navbar/feature/src/index.ts"
+      ],
+      "@onboarding/web/shared/navbar/ui": [
+        "libs/web/shared/navbar/ui/src/index.ts"
+      ],
+      "@onboarding/web/shell": ["libs/web/shell/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

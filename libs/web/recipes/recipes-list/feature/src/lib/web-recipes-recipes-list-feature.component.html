@@ -11,7 +11,7 @@
 </ng-container>
 
 <ng-container *ngIf="vm$ | async as vm">
-  <ul *ngIf="vm.status === 'success'">
+  <ul *ngIf="vm.status === 'success' && vm.recipes.length !== 0">
     <li *ngFor="let recipe of vm.recipes">
       <onboarding-ui-recipe-list-item
         [recipe]="recipe"
@@ -22,6 +22,10 @@
       ></onboarding-ui-recipe-list-item>
     </li>
   </ul>
+
+  <span *ngIf="vm.status === 'success' && vm.recipes.length === 0" class="info"
+    >No recipes found</span
+  >
 
   <onboarding-ui-loading *ngIf="vm.status === 'loading'"
     >Loading...</onboarding-ui-loading

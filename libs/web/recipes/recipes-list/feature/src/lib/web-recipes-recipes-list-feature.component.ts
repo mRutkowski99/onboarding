@@ -55,6 +55,7 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
   }
 
   onEdit(id: string) {
+    this.store.selectItem(id);
     this.router.navigate(['edit', id]);
   }
 

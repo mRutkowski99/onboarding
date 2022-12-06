@@ -41,75 +41,98 @@ export class RecipeDataService {
 }
 
 const recipesMock = [
-  // {
-  //   _id: '638e1815aaf0eb03e8f92efb',
-  //   name: 'Spicy Wings',
-  //   preparationTimeInMinutes: 30,
-  //   description: 'Chicken wings in sppicy Mexican style',
-  //   ingredients: [
-  //     {
-  //       _id: '1',
-  //       name: 'Chicken wings',
-  //       quantity: '500g',
-  //     },
-  //     {
-  //       _id: '2',
-  //       name: 'Pollos Hermanos chili spice',
-  //       quantity: '5g',
-  //     },
-  //     {
-  //       _id: '3',
-  //       name: 'Olive oil',
-  //       quantity: '10ml',
-  //     },
-  //   ],
-  // },
-  // {
-  //   _id: '638e1815aaf0eb03e8f92efc',
-  //   name: 'Spicy Wings',
-  //   preparationTimeInMinutes: 30,
-  //   description: 'Chicken wings in sppicy Mexican style',
-  //   ingredients: [
-  //     {
-  //       _id: '1',
-  //       name: 'Chicken wings',
-  //       quantity: '500g',
-  //     },
-  //     {
-  //       _id: '2',
-  //       name: 'Pollos Hermanos chili spice',
-  //       quantity: '5g',
-  //     },
-  //     {
-  //       _id: '3',
-  //       name: 'Olive oil',
-  //       quantity: '10ml',
-  //     },
-  //   ],
-  // },
-  // {
-  //   _id: '638e1815aaf0eb03e8f92efd',
-  //   name: 'Spicy Wings',
-  //   preparationTimeInMinutes: 30,
-  //   description: 'Chicken wings in sppicy Mexican style',
-  //   ingredients: [
-  //     {
-  //       _id: '1',
-  //       name: 'Chicken wings',
-  //       quantity: '500g',
-  //     },
-  //     {
-  //       _id: '2',
-  //       name: 'Pollos Hermanos chili spice',
-  //       quantity: '5g',
-  //     },
-  //     {
-  //       _id: '3',
-  //       name: 'Olive oil',
-  //       quantity: '10ml',
-  //     },
-  //   ],
-  // },
+  {
+    _id: '638e1815aaf0eb03e8f92efb',
+    name: 'Spicy Wings',
+    preparationTimeInMinutes: 30,
+    description: 'Chicken wings in sppicy Mexican style',
+    ingredients: [
+      {
+        _id: '1',
+        name: 'Chicken wings',
+        quantity: '500g',
+      },
+      {
+        _id: '2',
+        name: 'Pollos Hermanos chili spice',
+        quantity: '5g',
+      },
+      {
+        _id: '3',
+        name: 'Olive oil',
+        quantity: '10ml',
+      },
+    ],
+  },
+  {
+    _id: '638e1815aaf0eb03e8f92ef1',
+    name: 'Spicy Wings',
+    preparationTimeInMinutes: 30,
+    description: 'Chicken wings in sppicy Mexican style',
+    ingredients: [
+      {
+        _id: '1',
+        name: 'Chicken wings',
+        quantity: '500g',
+      },
+      {
+        _id: '2',
+        name: 'Pollos Hermanos chili spice',
+        quantity: '5g',
+      },
+      {
+        _id: '3',
+        name: 'Olive oil',
+        quantity: '10ml',
+      },
+    ],
+  },
+  {
+    _id: '638e1815aaf0eb03e8f92efc',
+    name: 'Spicy Wings',
+    preparationTimeInMinutes: 30,
+    description: 'Chicken wings in sppicy Mexican style',
+    ingredients: [
+      {
+        _id: '1',
+        name: 'Chicken wings',
+        quantity: '500g',
+      },
+      {
+        _id: '2',
+        name: 'Pollos Hermanos chili spice',
+        quantity: '5g',
+      },
+      {
+        _id: '3',
+        name: 'Olive oil',
+        quantity: '10ml',
+      },
+    ],
+  },
+  {
+    _id: '638e1815aaf0eb03e8f92efd',
+    name: 'Spicy Wings',
+    preparationTimeInMinutes: 30,
+    description: 'Chicken wings in sppicy Mexican style',
+    ingredients: [
+      {
+        _id: '1',
+        name: 'Chicken wings',
+        quantity: '500g',
+      },
+      {
+        _id: '2',
+        name: 'Pollos Hermanos chili spice',
+        quantity: '5g',
+      },
+      {
+        _id: '3',
+        name: 'Olive oil',
+        quantity: '10ml',
+      },
+    ],
+  },
   {
     _id: '638e1815aaf0eb03e8f92efe',
     name: 'Spicy Wings',

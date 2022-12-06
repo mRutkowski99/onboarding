@@ -3,7 +3,11 @@ import { RouterModule, Routes } from '@angular/router';
 import { RecipesShellContainerComponent } from './containers/recipes-shell-container.component';
 
 const routes: Routes = [
-  { path: '', component: RecipesShellContainerComponent },
+  {
+    path: '',
+    component: RecipesShellContainerComponent,
+    children: [{ path: ':id', pathMatch: 'full' }],
+  },
 ];
 
 @NgModule({

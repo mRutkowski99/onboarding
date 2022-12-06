@@ -1,4 +1,6 @@
-<button mat-raised-button color="primary">Add new recipe</button>
+<button mat-raised-button color="primary" (click)="onAdd()">
+  Add new recipe
+</button>
 
 <ng-container *ngIf="filter$ | async as filter">
   <onboarding-ui-recipes-filter

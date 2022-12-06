@@ -41,6 +41,7 @@
         "libs/web/recipes/recipes-list/util/src/index.ts"
       ],
       "@onboarding/web/recipes/shell": ["libs/web/recipes/shell/src/index.ts"],
+
       "@onboarding/web/shared/navbar/feature": [
         "libs/web/shared/navbar/feature/src/index.ts"
       ],

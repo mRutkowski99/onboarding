@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import {
   RecipesListStoreFacade,
   WebRecipesRecipesListDataAccessModule,
@@ -28,7 +29,7 @@ import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebRecipesRecipesListFeatureComponent implements OnInit {
-  constructor(private store: RecipesListStoreFacade) {}
+  constructor(private store: RecipesListStoreFacade, private router: Router) {}
 
   vm$ = this.store.vm$;
   filter$ = this.store.filter$;
@@ -38,11 +39,15 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
   }
 
   onFilterChange(filter: string) {
-    console.log(filter);
+    this.store.provideFilter(filter);
   }
 
   onFilterTypeChange(filterType: RecipesListFilterTypeEnum) {
-    console.log(filterType);
+    this.store.provideFilterType(filterType);
+  }
+
+  onAdd() {
+    this.router.navigate(['add']);
   }
 
   onDelete(id: string) {
@@ -50,11 +55,12 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
   }
 
   onEdit(id: string) {
-    console.log(id);
+    this.router.navigate(['edit', id]);
   }
 
   onSelected(id: string) {
-    console.log(id);
+    this.store.selectItem(id);
+    this.router.navigate([id]);
   }
 
   onReload() {

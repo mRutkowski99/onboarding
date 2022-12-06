@@ -5,7 +5,7 @@
   </li>
   <li class="item">
     <span class="item__header">Preparation time: </span>
-    <span>{{ recipe.preparationTimeInMinutes }}</span>
+    <span>{{ recipe.preparationTimeInMinutes | preparationTimePipe }}</span>
   </li>
   <li class="item item--horizontal">
     <span class="item__header">Description: </span>

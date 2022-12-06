@@ -31,6 +31,9 @@
       "@onboarding/shared/util-click-stop-propagation-directive": [
         "libs/shared/util-click-stop-propagation-directive/src/index.ts"
       ],
+      "@onboarding/shared/util-preparation-time-pipe": [
+        "libs/shared/util-preparation-time-pipe/src/index.ts"
+      ],
       "@onboarding/web/recipes/recipe-details/feature": [
         "libs/web/recipes/recipe-details/feature/src/index.ts"
       ],

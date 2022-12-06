@@ -1,0 +1,37 @@
+<button mat-raised-button color="primary" (click)="onAdd()">
+  Add new recipe
+</button>
+
+<ng-container *ngIf="filter$ | async as filter">
+  <onboarding-ui-recipes-filter
+    [filterType]="filter.filterType"
+    (filterChange)="onFilterChange($event)"
+    (filterTypeChange)="onFilterTypeChange($event)"
+  ></onboarding-ui-recipes-filter>
+</ng-container>
+
+<ng-container *ngIf="vm$ | async as vm">
+  <ul *ngIf="vm.status === 'success' && vm.recipes.length !== 0">
+    <li *ngFor="let recipe of vm.recipes; trackBy: trackFn">
+      <onboarding-ui-recipe-list-item
+        [recipe]="recipe"
+        [isSelected]="vm.selectedId === recipe._id"
+        (delete)="onDelete($event)"
+        (edit)="onEdit($event)"
+        (selected)="onSelected($event)"
+      ></onboarding-ui-recipe-list-item>
+    </li>
+  </ul>
+
+  <span *ngIf="vm.status === 'success' && vm.recipes.length === 0" class="info"
+    >No recipes found</span
+  >
+
+  <onboarding-ui-loading *ngIf="vm.status === 'loading'"
+    >Loading...</onboarding-ui-loading
+  >
+
+  <onboarding-ui-error *ngIf="vm.status === 'error'" (reload)="onReload()">{{
+    vm.error
+  }}</onboarding-ui-error>
+</ng-container>

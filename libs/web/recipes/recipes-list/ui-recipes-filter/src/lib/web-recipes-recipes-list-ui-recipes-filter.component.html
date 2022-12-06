@@ -1,0 +1,22 @@
+<div class="filter-type">
+  <span>Filter recipes by:</span>
+  <mat-button-toggle-group
+    name="filterType"
+    (change)="onFilterTypeChange($event)"
+    [value]="filterType"
+  >
+    <mat-button-toggle [value]="filterTypeEnum.Name"
+      >Recipe name</mat-button-toggle
+    >
+    <mat-button-toggle [value]="filterTypeEnum.Ingredients"
+      >Recipe ingredients</mat-button-toggle
+    >
+  </mat-button-toggle-group>
+</div>
+
+<form [formGroup]="form">
+  <mat-form-field appearance="fill" class="form__control">
+    <mat-label>Filter phrase</mat-label>
+    <input matInput formControlName="filterPhrase" />
+  </mat-form-field>
+</form>

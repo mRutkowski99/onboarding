@@ -5,6 +5,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { WebShellModule } from '@onboarding/web/shell';
 import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -12,6 +14,8 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([]),
+    StoreModule.forRoot({}),
+    EffectsModule.forRoot(),
     WebShellModule,
   ],
   providers: [],

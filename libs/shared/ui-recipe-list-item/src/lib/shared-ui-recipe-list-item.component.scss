@@ -1,0 +1,15 @@
+mat-card-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btn-container {
+  display: flex;
+  gap: 1rem;
+}
+
+.highlight {
+  background-color: var(--primary-color);
+  color: #fff;
+}

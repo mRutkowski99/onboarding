@@ -2,6 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { pessimisticUpdate } from '@nrwl/angular';
 import { fetch } from '@nrwl/angular';
+import {
+  Event,
+  EventBusService,
+  EventNameEnum,
+} from '@onboarding/web/shared/util-event-bus';
 import { SnackbarService } from '@onboarding/web/shared/util-snackbar-service';
 import { EMPTY, map } from 'rxjs';
 import { RecipeListDataService } from '../services/recipe-list-data.service';
@@ -12,7 +17,8 @@ export class RecipesListEffects {
   constructor(
     private actions$: Actions,
     private apiService: RecipeListDataService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private eventBus: EventBusService
   ) {}
 
   loadRecipesList$ = createEffect(() =>
@@ -42,6 +48,7 @@ export class RecipesListEffects {
         run: ({ id }) => {
           return this.apiService.deleteRecipe(id).pipe(
             map(() => {
+              this.eventBus.emit(new Event(EventNameEnum.RecipeDeleted, id));
               this.snackbar.success('Recipe successfully deleted');
               return RecipesListActions.getRecipesList();
             })

@@ -65,6 +65,9 @@
       "@onboarding/web/shared/util-dialog-service": [
         "libs/web/shared/util-dialog-service/src/index.ts"
       ],
+      "@onboarding/web/shared/util-event-bus": [
+        "libs/web/shared/util-event-bus/src/index.ts"
+      ],
       "@onboarding/web/shared/util-snackbar-service": [
         "libs/web/shared/util-snackbar-service/src/index.ts"
       ],

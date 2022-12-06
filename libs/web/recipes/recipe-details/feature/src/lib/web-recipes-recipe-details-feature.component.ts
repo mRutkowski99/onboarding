@@ -19,6 +19,10 @@ import {
   DialogService,
   UtilDialogServiceModule,
 } from '@onboarding/web/shared/util-dialog-service';
+import {
+  EventBusService,
+  EventNameEnum,
+} from '@onboarding/web/shared/util-event-bus';
 
 @Component({
   selector: 'onboarding-web-recipes-recipe-details-feature',
@@ -43,9 +47,11 @@ export class WebRecipesRecipeDetailsFeatureComponent
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private store: RecipeDetailsStoreFacade,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private eventBus: EventBusService
   ) {}
 
+  private recipeDeletedEventSubscription: Subscription | undefined;
   private idSubscription: Subscription | undefined;
   private recipeId: string | undefined;
 
@@ -53,6 +59,13 @@ export class WebRecipesRecipeDetailsFeatureComponent
 
   ngOnInit(): void {
     this.initRecipeDetails();
+
+    this.recipeDeletedEventSubscription = this.eventBus.on(
+      EventNameEnum.RecipeDeleted,
+      (id) => {
+        if (id === this.recipeId) this.router.navigate(['']);
+      }
+    );
   }
 
   onReload() {
@@ -67,7 +80,7 @@ export class WebRecipesRecipeDetailsFeatureComponent
 
   onDelete() {
     this.dialogService
-      .openGenericDialog('Are you sure you want to delete this recipe?')
+      .openGenericDialog('Are you sure you want to delete this recipe?', false)
       .subscribe((response) => {
         if (response && this.recipeId) this.store.deteleRecipe(this.recipeId);
       });
@@ -75,6 +88,7 @@ export class WebRecipesRecipeDetailsFeatureComponent
 
   ngOnDestroy(): void {
     this.idSubscription?.unsubscribe();
+    this.recipeDeletedEventSubscription?.unsubscribe();
   }
 
   private initRecipeDetails() {

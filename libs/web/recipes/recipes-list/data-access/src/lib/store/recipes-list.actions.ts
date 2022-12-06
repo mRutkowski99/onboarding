@@ -40,5 +40,8 @@ export class RecipesListActions {
     props<{ filterType: RecipesListFilterTypeEnum }>()
   );
 
-  static selectItem = createAction(Types.SelectItem, props<{ id: string }>());
+  static selectItem = createAction(
+    Types.SelectItem,
+    props<{ id: string | null }>()
+  );
 }

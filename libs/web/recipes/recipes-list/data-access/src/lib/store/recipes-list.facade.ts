@@ -37,7 +37,7 @@ export class RecipesListStoreFacade {
     this.store.dispatch(RecipesListActions.deleteRecipe({ id }));
   }
 
-  selectItem(id: string) {
+  selectItem(id: string | null) {
     this.store.dispatch(RecipesListActions.selectItem({ id }));
   }
 

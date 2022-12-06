@@ -57,6 +57,7 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
   }
 
   onAdd() {
+    this.store.selectItem(null);
     this.router.navigate(['add']);
   }
 
@@ -64,7 +65,10 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
     this.dialogService
       .openGenericDialog('Are you sure you want to delete this recipe?', false)
       .subscribe((result) => {
-        if (result) console.log(id);
+        if (result) {
+          this.store.selectItem(null);
+          this.store.deleteRecipe(id);
+        }
       });
   }
 

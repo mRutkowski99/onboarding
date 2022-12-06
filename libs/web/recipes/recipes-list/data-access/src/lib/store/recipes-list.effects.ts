@@ -21,9 +21,7 @@ export class RecipesListEffects {
           return this.apiService
             .listAllRecipes()
             .pipe(
-              map((response) =>
-                RecipesListActions.getRecipesListSuccess({ data: response })
-              )
+              map((data) => RecipesListActions.getRecipesListSuccess({ data }))
             );
         },
 

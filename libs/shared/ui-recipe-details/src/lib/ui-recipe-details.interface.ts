@@ -1,6 +1,11 @@
+interface UiRecipeIngredient {
+  name: string;
+  quantity: string;
+}
+
 export interface UiRecipeDetails {
-  _id: string;
   name: string;
   preparationTimeInMinutes: number;
   description: string;
+  ingredients: UiRecipeIngredient[];
 }

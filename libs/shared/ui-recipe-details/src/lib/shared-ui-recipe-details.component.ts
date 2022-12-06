@@ -12,5 +12,5 @@ import { PreparationTimePipe } from '@onboarding/shared/util-preparation-time-pi
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SharedUiRecipeDetailsComponent {
-  @Input() recipe: UiRecipeDetails | undefined;
+  @Input() recipe: UiRecipeDetails | null | undefined;
 }

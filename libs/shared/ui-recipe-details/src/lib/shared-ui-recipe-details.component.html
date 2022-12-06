@@ -1,4 +1,4 @@
-<ul class="list" *ngIf="recipe !== undefined">
+<ul class="list" *ngIf="recipe">
   <li class="item">
     <span class="item__header">Name: </span>
     <span>{{ recipe.name }}</span>
@@ -10,5 +10,14 @@
   <li class="item item--horizontal">
     <span class="item__header">Description: </span>
     <span>{{ recipe.description }}</span>
+  </li>
+  <li class="item item--horizontal">
+    <span class="item__header">Ingredients: </span>
+    <ul class="list">
+      <li *ngFor="let ingredient of recipe.ingredients" class="item">
+        <span>{{ ingredient.name }}</span>
+        <span>{{ ingredient.quantity }}</span>
+      </li>
+    </ul>
   </li>
 </ul>

@@ -6,7 +6,7 @@ import { RecipeDetailsDataService } from '../services/recipe-details-data.servic
 import { RecipeDetailsActions } from './recipe-details.actions';
 
 @Injectable()
-export class RecipeDetailsEfeects {
+export class RecipeDetailsEfects {
   constructor(
     private actions$: Actions,
     private apiService: RecipeDetailsDataService

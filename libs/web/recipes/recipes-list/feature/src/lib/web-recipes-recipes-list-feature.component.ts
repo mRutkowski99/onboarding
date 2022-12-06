@@ -11,6 +11,11 @@ import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/
 import { SharedUiRecipeListItemComponent } from '@onboarding/shared/ui-recipe-list-item';
 import { SharedUiLoadingComponent } from '@onboarding/shared/ui-loading';
 import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
+import {
+  DialogService,
+  UtilDialogServiceModule,
+} from '@onboarding/web/shared/util-dialog-service';
+import { Recipe } from '@onboarding/shared/domain';
 
 @Component({
   selector: 'onboarding-feature-recipes-list',
@@ -18,6 +23,7 @@ import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
   imports: [
     CommonModule,
     WebRecipesRecipesListDataAccessModule,
+    UtilDialogServiceModule,
     MatButtonModule,
     WebRecipesRecipesListUiRecipesFilterComponent,
     SharedUiRecipeListItemComponent,
@@ -29,7 +35,11 @@ import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebRecipesRecipesListFeatureComponent implements OnInit {
-  constructor(private store: RecipesListStoreFacade, private router: Router) {}
+  constructor(
+    private store: RecipesListStoreFacade,
+    private router: Router,
+    private dialogService: DialogService
+  ) {}
 
   vm$ = this.store.vm$;
   filter$ = this.store.filter$;
@@ -51,7 +61,11 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
   }
 
   onDelete(id: string) {
-    console.log(id);
+    this.dialogService
+      .openGenericDialog('Are you sure you want to delete this recipe?', false)
+      .subscribe((result) => {
+        if (result) console.log(id);
+      });
   }
 
   onEdit(id: string) {
@@ -66,5 +80,9 @@ export class WebRecipesRecipesListFeatureComponent implements OnInit {
 
   onReload() {
     this.store.getRecipesList();
+  }
+
+  trackFn(index: number, item: Recipe): Recipe {
+    return item;
   }
 }

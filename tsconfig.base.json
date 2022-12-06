@@ -41,12 +41,17 @@
         "libs/web/recipes/recipes-list/util/src/index.ts"
       ],
       "@onboarding/web/recipes/shell": ["libs/web/recipes/shell/src/index.ts"],
-
       "@onboarding/web/shared/navbar/feature": [
         "libs/web/shared/navbar/feature/src/index.ts"
       ],
       "@onboarding/web/shared/navbar/ui": [
         "libs/web/shared/navbar/ui/src/index.ts"
+      ],
+      "@onboarding/web/shared/ui-generic-dialog": [
+        "libs/web/shared/ui-generic-dialog/src/index.ts"
+      ],
+      "@onboarding/web/shared/util-dialog-service": [
+        "libs/web/shared/util-dialog-service/src/index.ts"
       ],
       "@onboarding/web/shell": ["libs/web/shell/src/index.ts"]
     }

@@ -12,7 +12,7 @@
 
 <ng-container *ngIf="vm$ | async as vm">
   <ul *ngIf="vm.status === 'success' && vm.recipes.length !== 0">
-    <li *ngFor="let recipe of vm.recipes">
+    <li *ngFor="let recipe of vm.recipes; trackBy: trackFn">
       <onboarding-ui-recipe-list-item
         [recipe]="recipe"
         [isSelected]="vm.selectedId === recipe._id"

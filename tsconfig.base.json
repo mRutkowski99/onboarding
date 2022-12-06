@@ -21,12 +21,18 @@
       "@onboarding/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@onboarding/shared/ui-error": ["libs/shared/ui-error/src/index.ts"],
       "@onboarding/shared/ui-loading": ["libs/shared/ui-loading/src/index.ts"],
+      "@onboarding/shared/ui-recipe-details": [
+        "libs/shared/ui-recipe-details/src/index.ts"
+      ],
       "@onboarding/shared/ui-recipe-list-item": [
         "libs/shared/ui-recipe-list-item/src/index.ts"
       ],
       "@onboarding/shared/util": ["libs/shared/util/src/index.ts"],
       "@onboarding/shared/util-click-stop-propagation-directive": [
         "libs/shared/util-click-stop-propagation-directive/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipe-details/feature": [
+        "libs/web/recipes/recipe-details/feature/src/index.ts"
       ],
       "@onboarding/web/recipes/recipes-list/data-access": [
         "libs/web/recipes/recipes-list/data-access/src/index.ts"

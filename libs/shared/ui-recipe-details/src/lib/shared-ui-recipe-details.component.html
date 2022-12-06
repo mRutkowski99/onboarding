@@ -1,0 +1,14 @@
+<ul class="list" *ngIf="recipe !== undefined">
+  <li class="item">
+    <span class="item__header">Name: </span>
+    <span>{{ recipe.name }}</span>
+  </li>
+  <li class="item">
+    <span class="item__header">Preparation time: </span>
+    <span>{{ recipe.preparationTimeInMinutes }}</span>
+  </li>
+  <li class="item item--horizontal">
+    <span class="item__header">Description: </span>
+    <span>{{ recipe.description }}</span>
+  </li>
+</ul>

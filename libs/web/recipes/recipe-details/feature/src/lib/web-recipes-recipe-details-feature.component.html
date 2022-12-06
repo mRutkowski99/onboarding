@@ -1,0 +1,7 @@
+<ng-container *ngIf="recipe$ | async as recipe; else error">
+  <onboarding-ui-recipe-details
+    [recipe]="recipe"
+  ></onboarding-ui-recipe-details>
+</ng-container>
+
+<ng-template #error> </ng-template>

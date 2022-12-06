@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { pessimisticUpdate } from '@nrwl/angular';
 import { fetch } from '@nrwl/angular';
-import { map } from 'rxjs';
+import { SnackbarService } from '@onboarding/web/shared/util-snackbar-service';
+import { EMPTY, map } from 'rxjs';
 import { RecipeListDataService } from '../services/recipe-list-data.service';
 import { RecipesListActions } from './recipes-list.actions';
 
@@ -10,7 +11,8 @@ import { RecipesListActions } from './recipes-list.actions';
 export class RecipesListEffects {
   constructor(
     private actions$: Actions,
-    private apiService: RecipeListDataService
+    private apiService: RecipeListDataService,
+    private snackbar: SnackbarService
   ) {}
 
   loadRecipesList$ = createEffect(() =>
@@ -38,13 +40,18 @@ export class RecipesListEffects {
       ofType(RecipesListActions.deleteRecipe),
       pessimisticUpdate({
         run: ({ id }) => {
-          return this.apiService
-            .deleteRecipe(id)
-            .pipe(map(() => RecipesListActions.getRecipesList()));
+          return this.apiService.deleteRecipe(id).pipe(
+            map(() => {
+              this.snackbar.success('Recipe successfully deleted');
+              return RecipesListActions.getRecipesList();
+            })
+          );
         },
 
-        onError: () =>
-          RecipesListActions.getRecipesListFail({ error: 'An error occured' }),
+        onError: () => {
+          this.snackbar.error('Error occured');
+          return EMPTY;
+        },
       })
     )
   );

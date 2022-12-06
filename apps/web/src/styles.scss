@@ -11,3 +11,13 @@ ul {
   list-style-type: none;
   padding: 0;
 }
+
+.snackbar--success {
+  color: #fff;
+  background-color: rgb(23, 144, 23);
+}
+
+.snackbar--error {
+  color: #fff;
+  background-color: rgb(187, 8, 8);
+}

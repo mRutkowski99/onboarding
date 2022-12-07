@@ -53,7 +53,6 @@ export class WebRecipesRecipeDetailsFeatureComponent
 
   private recipeDeletedEventSubscription: Subscription | undefined;
   private idSubscription: Subscription | undefined;
-  private recipeId: string | undefined;
 
   vm$ = this.store.vm$;
 
@@ -63,26 +62,27 @@ export class WebRecipesRecipeDetailsFeatureComponent
     this.recipeDeletedEventSubscription = this.eventBus.on(
       EventNameEnum.RecipeDeleted,
       (id) => {
-        if (id === this.recipeId) this.router.navigate(['']);
+        if (id === this.getIdFromSnapshot()) this.router.navigate(['']);
       }
     );
   }
 
   onReload() {
-    this.recipeId
-      ? this.store.loadRecipeDetails(this.recipeId)
-      : this.initRecipeDetails();
+    const id = this.getIdFromSnapshot();
+    id ? this.store.loadRecipeDetails(id) : this.initRecipeDetails();
   }
 
   onEdit() {
-    this.router.navigate(['edit', this.recipeId]);
+    this.router.navigate(['edit', this.getIdFromSnapshot()]);
   }
 
   onDelete() {
+    const id = this.getIdFromSnapshot();
+
     this.dialogService
       .openGenericDialog('Are you sure you want to delete this recipe?', false)
       .subscribe((response) => {
-        if (response && this.recipeId) this.store.deteleRecipe(this.recipeId);
+        if (response && id) this.store.deteleRecipe(id);
       });
   }
 
@@ -98,8 +98,11 @@ export class WebRecipesRecipeDetailsFeatureComponent
         filter((id) => !!id)
       )
       .subscribe((id) => {
-        this.recipeId = <string>id;
-        this.store.loadRecipeDetails(this.recipeId);
+        this.store.loadRecipeDetails(<string>id);
       });
+  }
+
+  private getIdFromSnapshot(): string | null {
+    return this.activatedRoute.snapshot.paramMap.get('id');
   }
 }

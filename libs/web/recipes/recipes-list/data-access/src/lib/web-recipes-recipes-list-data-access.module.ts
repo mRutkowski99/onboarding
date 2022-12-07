@@ -10,6 +10,7 @@ import {
   RECIPES_LIST_FEATURE_KEY,
 } from './store/recipes-list.reducer';
 import { RecipesListEffects } from './store/recipes-list.effects';
+import { UtilSnackbarServiceModule } from '@onboarding/web/shared/util-snackbar-service';
 
 @NgModule({
   imports: [
@@ -17,6 +18,7 @@ import { RecipesListEffects } from './store/recipes-list.effects';
     SharedDataAccessModule,
     StoreModule.forFeature(RECIPES_LIST_FEATURE_KEY, recipesListReducer),
     EffectsModule.forFeature([RecipesListEffects]),
+    UtilSnackbarServiceModule,
   ],
   providers: [RecipeListDataService, RecipesListStoreFacade],
 })

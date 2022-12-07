@@ -1,0 +1,20 @@
+<ng-container *ngIf="vm$ | async as vm">
+  <ng-container *ngIf="vm.status === 'success'">
+    <onboarding-ui-recipe-details
+      [recipe]="vm.recipe"
+    ></onboarding-ui-recipe-details>
+  </ng-container>
+
+  <onboarding-ui-loading *ngIf="vm.status === 'loading'"
+    >Loading...</onboarding-ui-loading
+  >
+
+  <onboarding-ui-error *ngIf="vm.status === 'error'" (reload)="onReload()">{{
+    vm.error
+  }}</onboarding-ui-error>
+
+  <div class="btn-container">
+    <button mat-raised-button color="primary" (click)="onEdit()">Edit</button>
+    <button mat-raised-button color="warn" (click)="onDelete()">Delete</button>
+  </div>
+</ng-container>

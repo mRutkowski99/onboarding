@@ -1,0 +1,16 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 1rem;
+}
+
+textarea {
+  resize: none;
+}
+
+.btn-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

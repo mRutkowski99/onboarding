@@ -11,12 +11,15 @@ import {
   Validators,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { UiRecipeForm } from './ui-recipe-form.interface';
-import { dirtyCheck } from '@onboarding/shared/util';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs';
+import {
+  UiRecipeForm,
+  UiRecipeFormIngredient,
+} from './ui-recipe-form.interface';
+
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'onboarding-ui-recipe-form',
@@ -42,6 +45,15 @@ export class WebRecipesRecipeFormUiComponent {
     _disabled ? this.recipeForm.disable() : this.recipeForm.enable();
   }
 
+  @Input() ingredients: UiRecipeFormIngredient[] = [];
+
+  @Output() value = new EventEmitter<
+    UiRecipeForm & { ingredients: UiRecipeFormIngredient[] }
+  >();
+  @Output() cancel = new EventEmitter<boolean>();
+
+  private hasIngredientsBeenModified = false;
+
   recipeForm = new FormGroup({
     name: new FormControl('', {
       nonNullable: true,
@@ -65,25 +77,14 @@ export class WebRecipesRecipeFormUiComponent {
     }),
   });
 
-  @Output() valid = this.recipeForm.statusChanges.pipe(
-    map((status) => status === 'VALID'),
-    distinctUntilChanged()
-  );
+  onCancel() {
+    this.cancel.emit(this.recipeForm.dirty || this.hasIngredientsBeenModified);
+  }
 
-  @Output() value = this.recipeForm.valueChanges.pipe(
-    map((value) => <UiRecipeForm>value),
-    debounceTime(300)
-  );
-
-  // get value(): UiRecipeForm {
-  //   return this.recipeForm.getRawValue();
-  // }
-
-  // get isDirty(): boolean {
-  //   return this.recipeForm.dirty;
-  // }
-
-  // @Output() isDirty = this.recipeForm.valueChanges.pipe(
-  //   dirtyCheck(this.recipeForm)
-  // )
+  onSubmit() {
+    this.value.emit({
+      ...this.recipeForm.getRawValue(),
+      ingredients: [...this.ingredients],
+    });
+  }
 }

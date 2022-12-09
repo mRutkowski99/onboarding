@@ -1,9 +1,83 @@
-<onboarding-ui-recipe-form></onboarding-ui-recipe-form>
+<form [formGroup]="recipeForm" (ngSubmit)="onSubmit()" class="form">
+  <mat-form-field appearance="fill" class="form__control">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput formControlName="name" />
+    <mat-error *ngIf="recipeForm.controls.name.hasError('required')"
+      >This field is required</mat-error
+    >
+    <mat-error *ngIf="recipeForm.controls.name.hasError('minlength')"
+      >Min length is 3 characters</mat-error
+    >
+    <mat-error *ngIf="recipeForm.controls.name.hasError('maxlength')"
+      >Max length is 80 characters</mat-error
+    >
+  </mat-form-field>
 
-<ul>
-  <li *ngFor="let ingredient of ingredients">
-    <onboarding-ui-ingredient-chip
-      [ingredient]="ingredient"
-    ></onboarding-ui-ingredient-chip>
-  </li>
-</ul>
+  <mat-form-field appearance="fill" class="form__control">
+    <mat-label>Preparation time (min)</mat-label>
+    <input type="number" matInput formControlName="preparationTimeInMinutes" />
+    <mat-error
+      *ngIf="recipeForm.controls.preparationTimeInMinutes.hasError('required')"
+      >This field is required</mat-error
+    >
+    <mat-error
+      *ngIf="recipeForm.controls.preparationTimeInMinutes.hasError('min')"
+    >
+      Preparation time must be positive number
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="form__control">
+    <mat-label>Description</mat-label>
+    <textarea rows="4" matInput formControlName="description"></textarea>
+    <mat-error *ngIf="recipeForm.controls.description.hasError('required')"
+      >This field is required</mat-error
+    >
+    <mat-error *ngIf="recipeForm.controls.description.hasError('minlength')"
+      >Min length is 15 characters</mat-error
+    >
+    <mat-error *ngIf="recipeForm.controls.description.hasError('maxlength')"
+      >Max length is 255 characters</mat-error
+    >
+  </mat-form-field>
+
+  <div>
+    <span class="title">Ingredients: </span>
+    <ng-container *ngIf="ingredients$ | async as ingredients">
+      <ul>
+        <li *ngIf="ingredients.length === 0">
+          <span class="info">No ingredients has been added</span>
+        </li>
+        <li *ngFor="let ingredient of ingredients">
+          <onboarding-ui-ingredient-chip
+            [ingredient]="ingredient"
+          ></onboarding-ui-ingredient-chip>
+        </li>
+        <li>
+          <button mat-mini-fab color="primary">
+            <mat-icon>add</mat-icon>
+          </button>
+        </li>
+      </ul>
+    </ng-container>
+  </div>
+
+  <div class="btn-container">
+    <button
+      mat-raised-button
+      color="primary"
+      type="button"
+      (click)="onCancel()"
+    >
+      Cancel
+    </button>
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="recipeForm.invalid || (isNotEnoughIngredients$ | async)"
+    >
+      Save
+    </button>
+  </div>
+</form>

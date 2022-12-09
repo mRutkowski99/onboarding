@@ -46,6 +46,9 @@
       "@onboarding/web/recipes/recipe-details/feature": [
         "libs/web/recipes/recipe-details/feature/src/index.ts"
       ],
+      "@onboarding/web/recipes/recipe-form/data-access": [
+        "libs/web/recipes/recipe-form/data-access/src/index.ts"
+      ],
       "@onboarding/web/recipes/recipe-form/feature": [
         "libs/web/recipes/recipe-form/feature/src/index.ts"
       ],

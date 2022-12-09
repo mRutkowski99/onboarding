@@ -3,3 +3,9 @@ export interface UiRecipeForm {
   preparationTimeInMinutes: number;
   description: string;
 }
+
+export interface UiRecipeFormIngredient {
+  _id: string;
+  name: string;
+  quantity: string;
+}

@@ -12,6 +12,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms';
 import { UiRecipeForm } from './ui-recipe-form.interface';
+import { dirtyCheck } from '@onboarding/shared/util';
 import { debounceTime, distinctUntilChanged, map } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -73,4 +74,16 @@ export class WebRecipesRecipeFormUiComponent {
     map((value) => <UiRecipeForm>value),
     debounceTime(300)
   );
+
+  // get value(): UiRecipeForm {
+  //   return this.recipeForm.getRawValue();
+  // }
+
+  // get isDirty(): boolean {
+  //   return this.recipeForm.dirty;
+  // }
+
+  // @Output() isDirty = this.recipeForm.valueChanges.pipe(
+  //   dirtyCheck(this.recipeForm)
+  // )
 }

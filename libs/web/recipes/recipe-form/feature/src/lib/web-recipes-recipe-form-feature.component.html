@@ -1,1 +1,9 @@
 <onboarding-ui-recipe-form></onboarding-ui-recipe-form>
+
+<ul>
+  <li *ngFor="let ingredient of ingredients">
+    <onboarding-ui-ingredient-chip
+      [ingredient]="ingredient"
+    ></onboarding-ui-ingredient-chip>
+  </li>
+</ul>

@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  displayName: 'web-recipes-recipe-form-ui',
+  displayName: 'web-recipes-recipe-form-ui-add-edit-ingredient-dialog',
   preset: '../../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
   globals: {
@@ -9,7 +9,8 @@ export default {
       stringifyContentPathRegex: '\\.(html|svg)$',
     },
   },
-  coverageDirectory: '../../../../../coverage/libs/web/recipes/recipe-form/ui',
+  coverageDirectory:
+    '../../../../../coverage/libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': 'jest-preset-angular',
   },

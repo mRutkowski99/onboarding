@@ -5,7 +5,7 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { SharedUiIngredientChipComponent } from '@onboarding/shared/ui-ingredient-chip';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,11 @@ import {
   RecipeFormStoreFacade,
   WebRecipesRecipeFormDataAccessModule,
 } from '@onboarding/web/recipes/recipe-form/data-access';
+import {
+  DialogService,
+  UtilDialogServiceModule,
+} from '@onboarding/web/shared/util-dialog-service';
+import { AddEditIngredientDialogComponent } from '@onboarding/web/recipes/recipe-form/ui-add-edit-ingredient-dialog';
 
 @Component({
   selector: 'onboarding-feature-recipe-form',
@@ -30,6 +35,7 @@ import {
     CommonModule,
     ReactiveFormsModule,
     WebRecipesRecipeFormDataAccessModule,
+    UtilDialogServiceModule,
     SharedUiIngredientChipComponent,
     MatButtonModule,
     MatIconModule,
@@ -41,7 +47,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebRecipesRecipeFormFeatureComponent {
-  constructor(private store: RecipeFormStoreFacade) {}
+  constructor(
+    private store: RecipeFormStoreFacade,
+    private location: Location,
+    private dialogService: DialogService
+  ) {}
 
   @Input() set recipe(_recipe: Recipe | undefined) {
     if (_recipe === undefined) return;
@@ -54,6 +64,8 @@ export class WebRecipesRecipeFormFeatureComponent {
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
   hasIngredientsBeenModified$ = this.store.hasIngredientsBeenModified$;
+
+  isFormDirty = false;
 
   recipeForm = new FormGroup({
     name: new FormControl('', {
@@ -79,7 +91,15 @@ export class WebRecipesRecipeFormFeatureComponent {
   });
 
   onAddIngredient() {
-    //
+    this.dialogService
+      .openCustomDialog<null, Ingredient>(
+        null,
+        AddEditIngredientDialogComponent,
+        {}
+      )
+      .subscribe((result) => {
+        if (result) this.store.addIngredient(result);
+      });
   }
 
   onDeleteIngredient(id: string) {
@@ -87,7 +107,14 @@ export class WebRecipesRecipeFormFeatureComponent {
   }
 
   onEditIngredient(ingredient: Ingredient) {
-    //
+    this.dialogService
+      .openCustomDialog<Ingredient, Ingredient>(
+        ingredient,
+        AddEditIngredientDialogComponent
+      )
+      .subscribe((result) => {
+        if (result) this.store.editIngredient(result);
+      });
   }
 
   onSubmit() {
@@ -95,6 +122,12 @@ export class WebRecipesRecipeFormFeatureComponent {
   }
 
   onCancel() {
-    //
+    const subscription = this.hasIngredientsBeenModified$.subscribe(
+      (beenModified) => {
+        this.isFormDirty = this.recipeForm.dirty || beenModified;
+        this.location.back();
+        subscription.unsubscribe();
+      }
+    );
   }
 }

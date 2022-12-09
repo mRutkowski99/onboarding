@@ -1,15 +1,15 @@
 {
-  "name": "web-recipes-recipe-form-ui",
+  "name": "web-recipes-recipe-form-ui-add-edit-ingredient-dialog",
   "$schema": "../../../../../node_modules/nx/schemas/project-schema.json",
   "projectType": "library",
-  "sourceRoot": "libs/web/recipes/recipe-form/ui/src",
+  "sourceRoot": "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/src",
   "prefix": "onboarding",
   "targets": {
     "test": {
       "executor": "@nrwl/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "libs/web/recipes/recipe-form/ui/jest.config.ts",
+        "jestConfig": "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/jest.config.ts",
         "passWithNoTests": true
       }
     },
@@ -17,8 +17,8 @@
       "executor": "@nrwl/linter:eslint",
       "options": {
         "lintFilePatterns": [
-          "libs/web/recipes/recipe-form/ui/**/*.ts",
-          "libs/web/recipes/recipe-form/ui/**/*.html"
+          "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/**/*.ts",
+          "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/**/*.html"
         ]
       }
     }

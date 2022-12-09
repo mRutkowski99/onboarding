@@ -54,7 +54,12 @@
           ></onboarding-ui-ingredient-chip>
         </li>
         <li>
-          <button mat-mini-fab color="primary">
+          <button
+            mat-mini-fab
+            color="primary"
+            type="button"
+            (click)="onAddIngredient()"
+          >
             <mat-icon>add</mat-icon>
           </button>
         </li>

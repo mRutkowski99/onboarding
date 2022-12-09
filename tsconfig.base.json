@@ -52,8 +52,8 @@
       "@onboarding/web/recipes/recipe-form/feature": [
         "libs/web/recipes/recipe-form/feature/src/index.ts"
       ],
-      "@onboarding/web/recipes/recipe-form/ui": [
-        "libs/web/recipes/recipe-form/ui/src/index.ts"
+      "@onboarding/web/recipes/recipe-form/ui-add-edit-ingredient-dialog": [
+        "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/src/index.ts"
       ],
       "@onboarding/web/recipes/recipes-list/data-access": [
         "libs/web/recipes/recipes-list/data-access/src/index.ts"

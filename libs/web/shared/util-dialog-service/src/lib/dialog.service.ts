@@ -1,3 +1,5 @@
+import { DialogConfig } from '@angular/cdk/dialog';
+import { ComponentType } from '@angular/cdk/portal';
 import { Injectable } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { GenericDialogPayload } from '@onboarding/shared/domain';
@@ -22,6 +24,20 @@ export class DialogService {
         WebSharedUiGenericDialogComponent,
         config
       )
+      .afterClosed()
+      .pipe(first());
+  }
+
+  openCustomDialog<TInput, TResult>(
+    data: TInput,
+    component: ComponentType<unknown>,
+    config?: DialogConfig
+  ): Observable<TResult | undefined> {
+    const _config = new MatDialogConfig<TInput>();
+    _config.data = { ...data };
+
+    return this.dialog
+      .open<unknown, TInput, TResult>(component, _config)
       .afterClosed()
       .pipe(first());
   }

@@ -30,11 +30,11 @@ export class DialogService {
 
   openCustomDialog<TInput, TResult>(
     data: TInput,
-    component: ComponentType<unknown>,
-    config?: DialogConfig
+    component: ComponentType<unknown>
   ): Observable<TResult | undefined> {
     const _config = new MatDialogConfig<TInput>();
     _config.data = { ...data };
+    _config.minWidth = '30vw';
 
     return this.dialog
       .open<unknown, TInput, TResult>(component, _config)

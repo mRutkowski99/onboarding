@@ -5,22 +5,29 @@ import { RecipeFormActions } from './recipe-form.actions';
 export const RECIPE_FORM_FEATURE_NAME = 'recipeForm';
 
 export interface RecipeFormState {
+  recipeId: string | undefined;
   ingredients: Ingredient[];
   hasIngredientsBeenModified: boolean;
 }
 
 const initialState: RecipeFormState = {
+  recipeId: undefined,
   ingredients: [],
   hasIngredientsBeenModified: false,
 };
 
 export const recipeFormReducer = createReducer(
   initialState,
+  on(RecipeFormActions.storeRecipeId, (state, { recipeId }) => ({
+    ...state,
+    recipeId,
+  })),
   on(RecipeFormActions.storeIngredients, (state, { ingredients }) => ({
     ...state,
     ingredients,
   })),
   on(RecipeFormActions.addIngredient, (state, { ingredient }) => ({
+    ...state,
     hasIngredientsBeenModified: true,
     ingredients: [...state.ingredients, ingredient],
   })),
@@ -36,6 +43,7 @@ const deleteIngredient = (
   state: RecipeFormState,
   id: string
 ): RecipeFormState => ({
+  ...state,
   hasIngredientsBeenModified: true,
   ingredients: state.ingredients.filter((ingredient) => ingredient._id !== id),
 });
@@ -44,6 +52,7 @@ const editIngredient = (
   state: RecipeFormState,
   { _id, name, quantity }: Ingredient
 ): RecipeFormState => ({
+  ...state,
   hasIngredientsBeenModified: true,
   ingredients: state.ingredients.map((ingredient) =>
     ingredient._id === _id ? { _id, name, quantity } : ingredient

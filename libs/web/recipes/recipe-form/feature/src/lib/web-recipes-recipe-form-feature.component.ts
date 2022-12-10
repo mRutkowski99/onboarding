@@ -19,6 +19,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Ingredient, Recipe } from '@onboarding/shared/domain';
 import {
+  createUniqueNameValidator,
   RecipeFormStoreFacade,
   WebRecipesRecipeFormDataAccessModule,
 } from '@onboarding/web/recipes/recipe-form/data-access';
@@ -57,6 +58,7 @@ export class WebRecipesRecipeFormFeatureComponent {
     if (_recipe === undefined) return;
     this.recipeForm.patchValue({ ..._recipe });
     this.store.storeIngredients(_recipe.ingredients);
+    this.store.storeRecipeId(_recipe._id);
   }
 
   @Output() value = new EventEmitter<Recipe>();
@@ -64,6 +66,7 @@ export class WebRecipesRecipeFormFeatureComponent {
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
   hasIngredientsBeenModified$ = this.store.hasIngredientsBeenModified$;
+  ingredientsAndRecipeId$ = this.store.ingredientsAndRecipeId$;
 
   isFormDirty = false;
 
@@ -75,6 +78,7 @@ export class WebRecipesRecipeFormFeatureComponent {
         Validators.minLength(3),
         Validators.maxLength(80),
       ],
+      asyncValidators: [createUniqueNameValidator()],
     }),
     preparationTimeInMinutes: new FormControl(30, {
       nonNullable: true,
@@ -94,8 +98,7 @@ export class WebRecipesRecipeFormFeatureComponent {
     this.dialogService
       .openCustomDialog<null, Ingredient>(
         null,
-        AddEditIngredientDialogComponent,
-        {}
+        AddEditIngredientDialogComponent
       )
       .subscribe((result) => {
         if (result) this.store.addIngredient(result);
@@ -118,7 +121,16 @@ export class WebRecipesRecipeFormFeatureComponent {
   }
 
   onSubmit() {
-    //
+    const subscription = this.ingredientsAndRecipeId$.subscribe(
+      ({ ingredients, recipeId }) => {
+        this.value.emit({
+          ...this.recipeForm.getRawValue(),
+          ingredients: [...ingredients],
+          _id: recipeId || crypto.randomUUID(),
+        });
+        subscription.unsubscribe();
+      }
+    );
   }
 
   onCancel() {

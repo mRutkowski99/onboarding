@@ -9,6 +9,11 @@ export class RecipeFormSelectors {
     RECIPE_FORM_FEATURE_NAME
   );
 
+  static recipeIdSelector = createSelector(
+    this.featureSelector,
+    (state) => state.recipeId
+  );
+
   static ingredientsSelector = createSelector(
     this.featureSelector,
     (state) => state.ingredients

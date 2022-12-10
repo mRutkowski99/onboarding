@@ -3,7 +3,9 @@ import {
   Component,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import { CommonModule, Location } from '@angular/common';
 import { SharedUiIngredientChipComponent } from '@onboarding/shared/ui-ingredient-chip';
@@ -51,7 +53,7 @@ import { AddEditIngredientDialogComponent } from '@onboarding/web/recipes/recipe
   styleUrls: ['./web-recipes-recipe-form-feature.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebRecipesRecipeFormFeatureComponent {
+export class WebRecipesRecipeFormFeatureComponent implements OnChanges {
   constructor(
     private store: RecipeFormStoreFacade,
     private location: Location,
@@ -63,6 +65,8 @@ export class WebRecipesRecipeFormFeatureComponent {
     this.recipeForm.patchValue({ ..._recipe });
     this.store.storeIngredients(_recipe.ingredients);
   }
+
+  @Input() disabled: boolean | null = false;
 
   @Output() save = new EventEmitter<CreateUpdateRecipePayload>();
 
@@ -96,7 +100,15 @@ export class WebRecipesRecipeFormFeatureComponent {
     }),
   });
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['disabled']) {
+      this.disabled ? this.recipeForm.disable() : this.recipeForm.enable();
+    }
+  }
+
   onAddIngredient() {
+    if (this.disabled) return;
+
     this.dialogService
       .openCustomDialog<null, Ingredient>(
         null,
@@ -108,10 +120,14 @@ export class WebRecipesRecipeFormFeatureComponent {
   }
 
   onDeleteIngredient(id: string) {
+    if (this.disabled) return;
+
     this.store.deleteIngredient(id);
   }
 
   onEditIngredient(ingredient: Ingredient) {
+    if (this.disabled) return;
+
     this.dialogService
       .openCustomDialog<Ingredient, Ingredient>(
         ingredient,

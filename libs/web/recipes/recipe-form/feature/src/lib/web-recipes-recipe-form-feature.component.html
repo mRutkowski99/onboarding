@@ -67,6 +67,9 @@
           </button>
         </li>
       </ul>
+      <mat-error *ngIf="ingredients.length < 2"
+        >Recipe should include at least 2 ingredients</mat-error
+      >
     </ng-container>
   </div>
 
@@ -75,6 +78,7 @@
       mat-raised-button
       color="primary"
       type="button"
+      [disabled]="disabled"
       (click)="onCancel()"
     >
       Cancel
@@ -83,7 +87,9 @@
       mat-raised-button
       color="primary"
       type="submit"
-      [disabled]="recipeForm.invalid || (isNotEnoughIngredients$ | async)"
+      [disabled]="
+        recipeForm.invalid || (isNotEnoughIngredients$ | async) || disabled
+      "
     >
       Save
     </button>

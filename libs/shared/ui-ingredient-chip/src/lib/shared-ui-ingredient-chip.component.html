@@ -2,10 +2,10 @@
   <mat-card-content>
     <span>{{ ingredient.name }} - {{ ingredient.quantity }}</span>
     <div class="btn-container">
-      <button mat-mini-fab color="primary" (click)="onEdit()">
+      <button mat-mini-fab color="primary" type="button" (click)="onEdit()">
         <mat-icon>edit</mat-icon>
       </button>
-      <button mat-mini-fab color="warn" (click)="onDelete()">
+      <button mat-mini-fab color="warn" type="button" (click)="onDelete()">
         <mat-icon>delete</mat-icon>
       </button>
     </div>

@@ -20,15 +20,25 @@ export class RecipeDataService {
   }
 
   create(payload: CreateUpdateRecipePayload): Observable<void> {
-    return this.http.post<void>(this.url, { ...payload });
+    // return this.http.post<void>(this.url, { ...payload });
+    recipesMock = [...recipesMock, { ...payload, _id: crypto.randomUUID() }];
+    return of(void 0);
   }
 
   update(id: string, payload: CreateUpdateRecipePayload): Observable<void> {
-    return this.http.put<void>(this.indexedResourceUrl(id), { ...payload });
+    // return this.http.put<void>(this.indexedResourceUrl(id), { ...payload });
+
+    recipesMock = recipesMock.map((recipe) =>
+      recipe._id === id ? { ...payload, _id: id } : recipe
+    );
+    return of(void 0);
   }
 
   delete(id: string): Observable<void> {
-    return this.http.delete<void>(this.indexedResourceUrl(id));
+    // return this.http.delete<void>(this.indexedResourceUrl(id));
+
+    recipesMock = recipesMock.filter((recipe) => recipe._id !== id);
+    return of(void 0);
   }
 
   private indexedResourceUrl(id: string): string {
@@ -36,124 +46,9 @@ export class RecipeDataService {
   }
 }
 
-const recipesMock = [
+let recipesMock: Recipe[] = [
   {
     _id: '638e1815aaf0eb03e8f92efb',
-    name: 'Spicy Wings',
-    preparationTimeInMinutes: 30,
-    description: 'Chicken wings in sppicy Mexican style',
-    ingredients: [
-      {
-        _id: '1',
-        name: 'Chicken wings',
-        quantity: '500g',
-      },
-      {
-        _id: '2',
-        name: 'Pollos Hermanos chili spice',
-        quantity: '5g',
-      },
-      {
-        _id: '3',
-        name: 'Olive oil',
-        quantity: '10ml',
-      },
-    ],
-  },
-  {
-    _id: '638e1815aaf0eb03e8f92ef1',
-    name: 'Spicy Wings',
-    preparationTimeInMinutes: 30,
-    description: 'Chicken wings in sppicy Mexican style',
-    ingredients: [
-      {
-        _id: '1',
-        name: 'Chicken wings',
-        quantity: '500g',
-      },
-      {
-        _id: '2',
-        name: 'Pollos Hermanos chili spice',
-        quantity: '5g',
-      },
-      {
-        _id: '3',
-        name: 'Olive oil',
-        quantity: '10ml',
-      },
-    ],
-  },
-  {
-    _id: '638e1815aaf0eb03e8f92efc',
-    name: 'Spicy Wings',
-    preparationTimeInMinutes: 30,
-    description: 'Chicken wings in sppicy Mexican style',
-    ingredients: [
-      {
-        _id: '1',
-        name: 'Chicken wings',
-        quantity: '500g',
-      },
-      {
-        _id: '2',
-        name: 'Pollos Hermanos chili spice',
-        quantity: '5g',
-      },
-      {
-        _id: '3',
-        name: 'Olive oil',
-        quantity: '10ml',
-      },
-    ],
-  },
-  {
-    _id: '638e1815aaf0eb03e8f92efd',
-    name: 'Spicy Wings',
-    preparationTimeInMinutes: 30,
-    description: 'Chicken wings in sppicy Mexican style',
-    ingredients: [
-      {
-        _id: '1',
-        name: 'Chicken wings',
-        quantity: '500g',
-      },
-      {
-        _id: '2',
-        name: 'Pollos Hermanos chili spice',
-        quantity: '5g',
-      },
-      {
-        _id: '3',
-        name: 'Olive oil',
-        quantity: '10ml',
-      },
-    ],
-  },
-  {
-    _id: '638e1815aaf0eb03e8f92efe',
-    name: 'Spicy Wings',
-    preparationTimeInMinutes: 30,
-    description: 'Chicken wings in sppicy Mexican style',
-    ingredients: [
-      {
-        _id: '1',
-        name: 'Chicken wings',
-        quantity: '500g',
-      },
-      {
-        _id: '2',
-        name: 'Pollos Hermanos chili spice',
-        quantity: '5g',
-      },
-      {
-        _id: '3',
-        name: 'Olive oil',
-        quantity: '10ml',
-      },
-    ],
-  },
-  {
-    _id: '638e1815aaf0eb03e8f92eff',
     name: 'Spicy Wings',
     preparationTimeInMinutes: 30,
     description: 'Chicken wings in sppicy Mexican style',

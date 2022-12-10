@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { pessimisticUpdate } from '@nrwl/angular';
-import { map } from 'rxjs';
+import { map, tap } from 'rxjs';
 import {
   EventBusService,
   EventNameEnum,
@@ -23,6 +23,7 @@ export class AddRecipeEffects {
   createRecipe$ = createEffect(() =>
     this.actions$.pipe(
       ofType(AddRecipeActions.createRecipe),
+      tap(() => this.snackbar.info('Sending changes')),
       pessimisticUpdate({
         run: ({ payload }) =>
           this.apiService
@@ -49,7 +50,7 @@ export class AddRecipeEffects {
   createRecipeFail$ = createEffect(
     () =>
       this.actions$.pipe(
-        ofType(AddRecipeActions.createRecipeSuccess),
+        ofType(AddRecipeActions.createRecipeFail),
         map(() => this.snackbar.error('An error occured'))
       ),
     { dispatch: false }

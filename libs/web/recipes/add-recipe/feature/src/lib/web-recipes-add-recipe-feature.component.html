@@ -1,3 +1,4 @@
 <onboarding-feature-recipe-form
+  [disabled]="formDisabled$ | async"
   (save)="onSaveRecipe($event)"
 ></onboarding-feature-recipe-form>

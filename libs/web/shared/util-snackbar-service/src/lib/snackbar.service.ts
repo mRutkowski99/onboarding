@@ -9,6 +9,12 @@ export class SnackbarService {
     duration: 3000,
   };
 
+  info(message: string) {
+    this.snackbar.open(message, undefined, {
+      ...this.config,
+    });
+  }
+
   success(message: string) {
     this.snackbar.open(message, undefined, {
       ...this.config,

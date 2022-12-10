@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Ingredient } from '@onboarding/shared/domain';
-import { combineLatest, map } from 'rxjs';
+import { map } from 'rxjs';
 import { RecipeFormActions } from './recipe-form.actions';
 import { RecipeFormState } from './recipe-form.reducer';
 import { RecipeFormSelectors } from './recipe-form.selectors';
@@ -12,11 +12,6 @@ export class RecipeFormStoreFacade {
 
   ingredients$ = this.store.select(RecipeFormSelectors.ingredientsSelector);
 
-  ingredientsAndRecipeId$ = combineLatest([
-    this.ingredients$,
-    this.store.select(RecipeFormSelectors.recipeIdSelector),
-  ]).pipe(map(([ingredients, recipeId]) => ({ ingredients, recipeId })));
-
   isNotEnoughIngredients$ = this.ingredients$.pipe(
     map((ingredients) => ingredients.length < 2)
   );
@@ -24,10 +19,6 @@ export class RecipeFormStoreFacade {
   hasIngredientsBeenModified$ = this.store.select(
     RecipeFormSelectors.hasIngredientsBeenModifiedSelector
   );
-
-  storeRecipeId(id: string) {
-    this.store.dispatch(RecipeFormActions.storeRecipeId({ recipeId: id }));
-  }
 
   storeIngredients(ingredients: Ingredient[]) {
     this.store.dispatch(RecipeFormActions.storeIngredients({ ingredients }));

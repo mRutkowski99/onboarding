@@ -5,23 +5,17 @@ import { RecipeFormActions } from './recipe-form.actions';
 export const RECIPE_FORM_FEATURE_NAME = 'recipeForm';
 
 export interface RecipeFormState {
-  recipeId: string | undefined;
   ingredients: Ingredient[];
   hasIngredientsBeenModified: boolean;
 }
 
 const initialState: RecipeFormState = {
-  recipeId: undefined,
   ingredients: [],
   hasIngredientsBeenModified: false,
 };
 
 export const recipeFormReducer = createReducer(
   initialState,
-  on(RecipeFormActions.storeRecipeId, (state, { recipeId }) => ({
-    ...state,
-    recipeId,
-  })),
   on(RecipeFormActions.storeIngredients, (state, { ingredients }) => ({
     ...state,
     ingredients,

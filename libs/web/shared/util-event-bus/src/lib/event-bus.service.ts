@@ -25,4 +25,5 @@ export class Event {
 
 export enum EventNameEnum {
   RecipeDeleted,
+  RecipeCreated,
 }

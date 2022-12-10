@@ -17,7 +17,11 @@ import {
 } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { Ingredient, Recipe } from '@onboarding/shared/domain';
+import {
+  CreateUpdateRecipePayload,
+  Ingredient,
+  Recipe,
+} from '@onboarding/shared/domain';
 import {
   createUniqueNameValidator,
   RecipeFormStoreFacade,
@@ -58,15 +62,13 @@ export class WebRecipesRecipeFormFeatureComponent {
     if (_recipe === undefined) return;
     this.recipeForm.patchValue({ ..._recipe });
     this.store.storeIngredients(_recipe.ingredients);
-    this.store.storeRecipeId(_recipe._id);
   }
 
-  @Output() save = new EventEmitter<Recipe>();
+  @Output() save = new EventEmitter<CreateUpdateRecipePayload>();
 
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
   hasIngredientsBeenModified$ = this.store.hasIngredientsBeenModified$;
-  ingredientsAndRecipeId$ = this.store.ingredientsAndRecipeId$;
 
   isFormDirty = false;
 
@@ -121,16 +123,13 @@ export class WebRecipesRecipeFormFeatureComponent {
   }
 
   onSubmit() {
-    const subscription = this.ingredientsAndRecipeId$.subscribe(
-      ({ ingredients, recipeId }) => {
-        this.save.emit({
-          ...this.recipeForm.getRawValue(),
-          ingredients: [...ingredients],
-          _id: recipeId || crypto.randomUUID(),
-        });
-        subscription.unsubscribe();
-      }
-    );
+    const subscription = this.ingredients$.subscribe((ingredients) => {
+      this.save.emit({
+        ...this.recipeForm.getRawValue(),
+        ingredients: [...ingredients],
+      });
+      subscription.unsubscribe();
+    });
   }
 
   onCancel() {

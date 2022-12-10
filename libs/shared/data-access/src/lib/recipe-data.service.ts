@@ -1,10 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
-import {
-  CreateRecipePayload,
-  Recipe,
-  UpdateRecipePayload,
-} from '@onboarding/shared/domain';
+import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 import { Observable, of } from 'rxjs';
 import { API_URL } from './shared-data-access.module';
 
@@ -23,11 +19,11 @@ export class RecipeDataService {
     return of(recipesMock.find((recipe) => recipe._id === id)!);
   }
 
-  create(payload: CreateRecipePayload): Observable<void> {
+  create(payload: CreateUpdateRecipePayload): Observable<void> {
     return this.http.post<void>(this.url, { ...payload });
   }
 
-  update(id: string, payload: UpdateRecipePayload): Observable<void> {
+  update(id: string, payload: CreateUpdateRecipePayload): Observable<void> {
     return this.http.put<void>(this.indexedResourceUrl(id), { ...payload });
   }
 

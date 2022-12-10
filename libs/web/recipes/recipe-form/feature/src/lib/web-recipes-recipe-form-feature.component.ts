@@ -61,7 +61,7 @@ export class WebRecipesRecipeFormFeatureComponent {
     this.store.storeRecipeId(_recipe._id);
   }
 
-  @Output() value = new EventEmitter<Recipe>();
+  @Output() save = new EventEmitter<Recipe>();
 
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
@@ -123,7 +123,7 @@ export class WebRecipesRecipeFormFeatureComponent {
   onSubmit() {
     const subscription = this.ingredientsAndRecipeId$.subscribe(
       ({ ingredients, recipeId }) => {
-        this.value.emit({
+        this.save.emit({
           ...this.recipeForm.getRawValue(),
           ingredients: [...ingredients],
           _id: recipeId || crypto.randomUUID(),

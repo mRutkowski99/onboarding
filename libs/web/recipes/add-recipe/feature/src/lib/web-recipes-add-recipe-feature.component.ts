@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WebRecipesRecipeFormFeatureComponent } from '@onboarding/web/recipes/recipe-form/feature';
+import { Recipe } from '@onboarding/shared/domain';
 
 @Component({
   selector: 'onboarding-web-recipes-add-recipe-feature',
@@ -10,4 +11,8 @@ import { WebRecipesRecipeFormFeatureComponent } from '@onboarding/web/recipes/re
   styleUrls: ['./web-recipes-add-recipe-feature.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebRecipesAddRecipeFeatureComponent {}
+export class WebRecipesAddRecipeFeatureComponent {
+  onSaveRecipe(recipe: Recipe) {
+    //
+  }
+}

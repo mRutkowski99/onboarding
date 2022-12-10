@@ -37,6 +37,9 @@
       "@onboarding/shared/util-preparation-time-pipe": [
         "libs/shared/util-preparation-time-pipe/src/index.ts"
       ],
+      "@onboarding/web/recipes/add-recipe/data-access": [
+        "libs/web/recipes/add-recipe/data-access/src/index.ts"
+      ],
       "@onboarding/web/recipes/add-recipe/feature": [
         "libs/web/recipes/add-recipe/feature/src/index.ts"
       ],

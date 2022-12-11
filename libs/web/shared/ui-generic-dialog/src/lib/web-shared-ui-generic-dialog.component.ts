@@ -12,13 +12,13 @@ import { GenericDialogPayload } from '@onboarding/shared/domain';
   styleUrls: ['./web-shared-ui-generic-dialog.component.scss'],
 })
 export class WebSharedUiGenericDialogComponent {
-  message: string;
+  paragraphs: string[];
   yesOptionMsg: string;
   noOptionMsg: string;
   onlyConfirm: boolean;
 
   constructor(@Inject(MAT_DIALOG_DATA) data: GenericDialogPayload) {
-    this.message = data.message;
+    this.paragraphs = data.message.split('\n');
     this.yesOptionMsg = data.yesOptionMsg;
     this.noOptionMsg = data.noOptionMsg;
     this.onlyConfirm = data.onlyConfirm;

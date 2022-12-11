@@ -22,6 +22,7 @@ export const editRecipeReducer = createReducer(
     ...state,
     status: 'loading',
     error: null,
+    formDisabled: false,
   })),
   on(EditRecipeActions.getRecipeSuccess, (state, { recipe: data }) => ({
     ...state,

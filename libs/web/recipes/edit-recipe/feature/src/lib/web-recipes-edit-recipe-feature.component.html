@@ -1,1 +1,17 @@
-<p>web-recipes-edit-recipe-feature works!</p>
+<ng-container *ngIf="vm$ | async as vm">
+  <onboarding-feature-recipe-form
+    *ngIf="vm.status === 'success'"
+    [recipe]="vm.recipe"
+    [disabled]="vm.formDisabled"
+    (dirty)="onDirtyChange($event)"
+    (save)="onSave($event)"
+  ></onboarding-feature-recipe-form>
+
+  <onboarding-ui-loading *ngIf="vm.status === 'loading'"
+    >Loading...</onboarding-ui-loading
+  >
+
+  <onboarding-ui-error *ngIf="vm.status === 'error'" (reload)="onReload()">{{
+    vm.error
+  }}</onboarding-ui-error>
+</ng-container>

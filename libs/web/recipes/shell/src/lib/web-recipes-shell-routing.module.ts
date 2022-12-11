@@ -21,7 +21,7 @@ const routes: Routes = [
         canDeactivate: [UnsubmittedFormGuard],
       },
       {
-        path: 'edit:id',
+        path: 'edit/:id',
         pathMatch: 'full',
         component: WebRecipesEditRecipeFeatureComponent,
         canDeactivate: [UnsubmittedFormGuard],

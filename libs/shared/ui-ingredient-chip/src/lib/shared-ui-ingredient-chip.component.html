@@ -1,0 +1,25 @@
+<mat-card *ngIf="ingredient">
+  <mat-card-content>
+    <span>{{ ingredient.name }} - {{ ingredient.quantity }}</span>
+    <div class="btn-container">
+      <button
+        mat-mini-fab
+        color="primary"
+        type="button"
+        [disabled]="disabled"
+        (click)="onEdit()"
+      >
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button
+        mat-mini-fab
+        color="warn"
+        type="button"
+        [disabled]="disabled"
+        (click)="onDelete()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </mat-card-content>
+</mat-card>

@@ -20,6 +20,9 @@
       ],
       "@onboarding/shared/domain": ["libs/shared/domain/src/index.ts"],
       "@onboarding/shared/ui-error": ["libs/shared/ui-error/src/index.ts"],
+      "@onboarding/shared/ui-ingredient-chip": [
+        "libs/shared/ui-ingredient-chip/src/index.ts"
+      ],
       "@onboarding/shared/ui-loading": ["libs/shared/ui-loading/src/index.ts"],
       "@onboarding/shared/ui-recipe-details": [
         "libs/shared/ui-recipe-details/src/index.ts"
@@ -34,11 +37,26 @@
       "@onboarding/shared/util-preparation-time-pipe": [
         "libs/shared/util-preparation-time-pipe/src/index.ts"
       ],
+      "@onboarding/web/recipes/add-recipe/data-access": [
+        "libs/web/recipes/add-recipe/data-access/src/index.ts"
+      ],
+      "@onboarding/web/recipes/add-recipe/feature": [
+        "libs/web/recipes/add-recipe/feature/src/index.ts"
+      ],
       "@onboarding/web/recipes/recipe-details/data-access": [
         "libs/web/recipes/recipe-details/data-access/src/index.ts"
       ],
       "@onboarding/web/recipes/recipe-details/feature": [
         "libs/web/recipes/recipe-details/feature/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipe-form/data-access": [
+        "libs/web/recipes/recipe-form/data-access/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipe-form/feature": [
+        "libs/web/recipes/recipe-form/feature/src/index.ts"
+      ],
+      "@onboarding/web/recipes/recipe-form/ui-add-edit-ingredient-dialog": [
+        "libs/web/recipes/recipe-form/ui-add-edit-ingredient-dialog/src/index.ts"
       ],
       "@onboarding/web/recipes/recipes-list/data-access": [
         "libs/web/recipes/recipes-list/data-access/src/index.ts"
@@ -53,6 +71,7 @@
         "libs/web/recipes/recipes-list/util/src/index.ts"
       ],
       "@onboarding/web/recipes/shell": ["libs/web/recipes/shell/src/index.ts"],
+      "@onboarding/web/recipes/util": ["libs/web/recipes/util/src/index.ts"],
       "@onboarding/web/shared/navbar/feature": [
         "libs/web/shared/navbar/feature/src/index.ts"
       ],
@@ -62,6 +81,7 @@
       "@onboarding/web/shared/ui-generic-dialog": [
         "libs/web/shared/ui-generic-dialog/src/index.ts"
       ],
+      "@onboarding/web/shared/util": ["libs/web/shared/util/src/index.ts"],
       "@onboarding/web/shared/util-dialog-service": [
         "libs/web/shared/util-dialog-service/src/index.ts"
       ],

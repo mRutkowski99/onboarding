@@ -2,11 +2,16 @@ import { HttpClient } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 import { Observable, of } from 'rxjs';
+import { RecipesCache } from './cache/recipes.cache';
 import { API_URL } from './shared-data-access.module';
 
 @Injectable()
 export class RecipeDataService {
-  constructor(private http: HttpClient, @Inject(API_URL) private url: string) {}
+  constructor(
+    private http: HttpClient,
+    @Inject(API_URL) private url: string,
+    private cache: RecipesCache
+  ) {}
 
   getAll(): Observable<Recipe[]> {
     // return this.http.get<Recipe[]>(this.url);

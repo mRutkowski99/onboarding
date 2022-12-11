@@ -7,6 +7,7 @@ import { WebShellModule } from '@onboarding/web/shell';
 import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
 
 @NgModule({
   declarations: [AppComponent],
@@ -14,7 +15,8 @@ import { EffectsModule } from '@ngrx/effects';
     BrowserModule,
     BrowserAnimationsModule,
     RouterModule.forRoot([]),
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({ router: routerReducer }),
+    StoreRouterConnectingModule.forRoot(),
     EffectsModule.forRoot(),
     WebShellModule,
   ],

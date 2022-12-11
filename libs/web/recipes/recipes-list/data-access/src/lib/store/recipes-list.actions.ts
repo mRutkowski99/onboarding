@@ -9,7 +9,6 @@ enum Types {
   DeleteRecipe = '[Recipes List] Delete Recipe',
   ProvideFilter = '[Recipes List] Provide Filter',
   ProvideFilterType = '[Recipes List] Provide Filter Type',
-  SelectItem = '[Recipes List] Select Item',
 }
 
 export class RecipesListActions {
@@ -38,10 +37,5 @@ export class RecipesListActions {
   static provideFilterType = createAction(
     Types.ProvideFilterType,
     props<{ filterType: RecipesListFilterTypeEnum }>()
-  );
-
-  static selectItem = createAction(
-    Types.SelectItem,
-    props<{ id: string | null }>()
   );
 }

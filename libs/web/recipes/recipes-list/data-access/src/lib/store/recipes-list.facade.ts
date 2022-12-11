@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { recipeIdSelector } from '@onboarding/shared/data-access';
 import { RecipesListFilterTypeEnum } from '@onboarding/web/recipes/recipes-list/util';
 import { combineLatest, map } from 'rxjs';
 import { RecipesListActions } from './recipes-list.actions';
@@ -14,7 +15,7 @@ export class RecipesListStoreFacade {
     this.store.select(RecipesListSelectors.recipesListSelector),
     this.store.select(RecipesListSelectors.errorMessageSelector),
     this.store.select(RecipesListSelectors.statusSelector),
-    this.store.select(RecipesListSelectors.selectedItemSelector),
+    this.store.select(recipeIdSelector),
   ]).pipe(
     map(([recipes, error, status, selectedId]) => ({
       recipes,
@@ -35,10 +36,6 @@ export class RecipesListStoreFacade {
 
   deleteRecipe(id: string) {
     this.store.dispatch(RecipesListActions.deleteRecipe({ id }));
-  }
-
-  selectItem(id: string | null) {
-    this.store.dispatch(RecipesListActions.selectItem({ id }));
   }
 
   provideFilter(filter: string) {

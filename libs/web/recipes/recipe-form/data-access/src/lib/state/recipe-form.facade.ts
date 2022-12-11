@@ -28,7 +28,7 @@ export class RecipeFormStoreFacade {
   }
 
   initWithEmpty() {
-    //
+    this.store.dispatch(RecipeFormActions.initWithEmpty());
   }
 
   addIngredient(ingredient: Ingredient) {

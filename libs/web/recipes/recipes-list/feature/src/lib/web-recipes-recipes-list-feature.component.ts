@@ -77,7 +77,6 @@ export class WebRecipesRecipesListFeatureComponent
   }
 
   onAdd() {
-    this.store.selectItem(null);
     this.router.navigate(['add']);
   }
 
@@ -85,20 +84,15 @@ export class WebRecipesRecipesListFeatureComponent
     this.dialogService
       .openGenericDialog('Are you sure you want to delete this recipe?', false)
       .subscribe((result) => {
-        if (result) {
-          this.store.selectItem(null);
-          this.store.deleteRecipe(id);
-        }
+        if (result) this.store.deleteRecipe(id);
       });
   }
 
   onEdit(id: string) {
-    this.store.selectItem(id);
     this.router.navigate(['edit', id]);
   }
 
   onSelected(id: string) {
-    this.store.selectItem(id);
     this.router.navigate([id]);
   }
 

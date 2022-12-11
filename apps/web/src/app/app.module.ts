@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from '@onboarding/shared/data-access';
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,7 @@ import { routerReducer, StoreRouterConnectingModule } from '@ngrx/router-store';
     BrowserAnimationsModule,
     RouterModule.forRoot([]),
     StoreModule.forRoot({ router: routerReducer }),
-    StoreRouterConnectingModule.forRoot(),
+    StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
     EffectsModule.forRoot(),
     WebShellModule,
   ],

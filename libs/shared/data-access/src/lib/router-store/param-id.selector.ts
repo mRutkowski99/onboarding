@@ -1,21 +1,11 @@
 import { RouterReducerState } from '@ngrx/router-store';
 import { createFeatureSelector, createSelector } from '@ngrx/store';
+import { RouterStateUrl } from './custom-serializer';
 
 const routerFeatureSelector =
-  createFeatureSelector<RouterReducerState>('router');
-
-/*
-    Router state tree:
-    root.firstChild => root of router (RouterModule.forRoot())
-    => web shell router
-    => recipes shell router
-    => children routes in recipes router
-*/
+  createFeatureSelector<RouterReducerState<RouterStateUrl>>('router');
 
 export const recipeIdSelector = createSelector(
   routerFeatureSelector,
-  (state) =>
-    state.state.root.firstChild?.firstChild?.firstChild?.firstChild?.params[
-      'id'
-    ]
+  (router) => router.state.params['id']
 );

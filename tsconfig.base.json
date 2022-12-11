@@ -43,6 +43,12 @@
       "@onboarding/web/recipes/add-recipe/feature": [
         "libs/web/recipes/add-recipe/feature/src/index.ts"
       ],
+      "@onboarding/web/recipes/edit-recipe/data-access": [
+        "libs/web/recipes/edit-recipe/data-access/src/index.ts"
+      ],
+      "@onboarding/web/recipes/edit-recipe/feature": [
+        "libs/web/recipes/edit-recipe/feature/src/index.ts"
+      ],
       "@onboarding/web/recipes/recipe-details/data-access": [
         "libs/web/recipes/recipe-details/data-access/src/index.ts"
       ],

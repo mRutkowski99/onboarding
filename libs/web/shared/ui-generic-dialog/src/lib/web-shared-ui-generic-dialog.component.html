@@ -1,5 +1,5 @@
 <mat-dialog-content>
-  <span>{{ message }}</span>
+  <p *ngFor="let paragraph of paragraphs">{{ paragraph }}</p>
 </mat-dialog-content>
 <mat-dialog-actions>
   <button [mat-dialog-close]="false" mat-button *ngIf="!onlyConfirm">

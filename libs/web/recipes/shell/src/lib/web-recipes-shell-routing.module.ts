@@ -3,6 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { RecipesShellContainerComponent } from './containers/recipes-shell-container.component';
 import { WebRecipesRecipeDetailsFeatureComponent } from '@onboarding/web/recipes/recipe-details/feature';
 import { WebRecipesAddRecipeFeatureComponent } from '@onboarding/web/recipes/add-recipe/feature';
+import {
+  UnsubmittedFormGuard,
+  UnsubmittedFormGuardModule,
+} from '@onboarding/web/shared/util';
 
 const routes: Routes = [
   {
@@ -13,6 +17,7 @@ const routes: Routes = [
         path: 'add',
         pathMatch: 'full',
         component: WebRecipesAddRecipeFeatureComponent,
+        canDeactivate: [UnsubmittedFormGuard],
       },
       {
         path: ':id',
@@ -24,7 +29,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
+  imports: [UnsubmittedFormGuardModule, RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
 export class WebRecipiesShellRoutingModule {}

@@ -21,6 +21,7 @@ import { MatIconModule } from '@angular/material/icon';
 })
 export class SharedUiIngredientChipComponent {
   @Input() ingredient: UiIngredientChip | undefined;
+  @Input() disabled = false;
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<UiIngredientChip>();
 

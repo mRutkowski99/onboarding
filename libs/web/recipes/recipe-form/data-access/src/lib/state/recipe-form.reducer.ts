@@ -1,24 +1,35 @@
 import { createReducer, on } from '@ngrx/store';
-import { Ingredient } from '@onboarding/shared/domain';
+import { Ingredient, Recipe } from '@onboarding/shared/domain';
 import { RecipeFormActions } from './recipe-form.actions';
 
 export const RECIPE_FORM_FEATURE_NAME = 'recipeForm';
 
 export interface RecipeFormState {
+  recipeInitialValue: Recipe;
   ingredients: Ingredient[];
   hasIngredientsBeenModified: boolean;
 }
 
+const emptyRecipe: Recipe = {
+  _id: '',
+  name: '',
+  description: '',
+  preparationTimeInMinutes: 30,
+  ingredients: [],
+};
+
 const initialState: RecipeFormState = {
+  recipeInitialValue: emptyRecipe,
   ingredients: [],
   hasIngredientsBeenModified: false,
 };
 
 export const recipeFormReducer = createReducer(
   initialState,
-  on(RecipeFormActions.storeIngredients, (state, { ingredients }) => ({
+  on(RecipeFormActions.storeInitialValue, (state, { recipe }) => ({
     ...state,
-    ingredients,
+    ingredients: [...recipe.ingredients],
+    recipeInitialValue: { ...recipe },
   })),
   on(RecipeFormActions.addIngredient, (state, { ingredient }) => ({
     ...state,

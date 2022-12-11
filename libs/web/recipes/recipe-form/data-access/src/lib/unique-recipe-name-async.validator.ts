@@ -10,7 +10,6 @@ import {
   map,
   Observable,
   switchMap,
-  tap,
 } from 'rxjs';
 import { UniqueRecipeNameService } from './services/uniqe-name.service';
 
@@ -21,8 +20,7 @@ export function createUniqueNameValidator(): AsyncValidatorFn {
       debounceTime(300),
       distinctUntilChanged(),
       switchMap((name) => dataAccess.isNameUnique(name)),
-      map((result) => (result ? null : { notUniqueName: true })),
-      tap((result) => console.log(result))
+      map((result) => (result ? null : { notUniqueName: true }))
     );
   };
 }

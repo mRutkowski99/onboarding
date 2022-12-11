@@ -1,17 +1,17 @@
 import { createAction, props } from '@ngrx/store';
-import { Ingredient } from '@onboarding/shared/domain';
+import { Ingredient, Recipe } from '@onboarding/shared/domain';
 
 enum Types {
-  StoreIngredients = '[Recipe Form] Store Ingredients',
+  StoreInitialValue = '[Recipe Form] Store Initial Value',
   AddIngredient = '[Recipe Form] Add Ingredient',
   DeleteIngredient = '[Recipe Form] Delete Ingredient',
   EditIngredient = '[Edit Ingredient] Edit Ingredient',
 }
 
 export class RecipeFormActions {
-  static storeIngredients = createAction(
-    Types.StoreIngredients,
-    props<{ ingredients: Ingredient[] }>()
+  static storeInitialValue = createAction(
+    Types.StoreInitialValue,
+    props<{ recipe: Recipe }>()
   );
 
   static addIngredient = createAction(

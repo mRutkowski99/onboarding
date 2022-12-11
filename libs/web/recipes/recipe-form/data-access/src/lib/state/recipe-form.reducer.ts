@@ -26,6 +26,7 @@ const initialState: RecipeFormState = {
 
 export const recipeFormReducer = createReducer(
   initialState,
+  on(RecipeFormActions.initWithEmpty, () => ({ ...initialState })),
   on(RecipeFormActions.storeInitialValue, (state, { recipe }) => ({
     ...state,
     ingredients: [...recipe.ingredients],

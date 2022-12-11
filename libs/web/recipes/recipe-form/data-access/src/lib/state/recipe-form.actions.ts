@@ -2,6 +2,7 @@ import { createAction, props } from '@ngrx/store';
 import { Ingredient, Recipe } from '@onboarding/shared/domain';
 
 enum Types {
+  InitWithEmpty = '[Recipe Form] Init With Empty',
   StoreInitialValue = '[Recipe Form] Store Initial Value',
   AddIngredient = '[Recipe Form] Add Ingredient',
   DeleteIngredient = '[Recipe Form] Delete Ingredient',
@@ -9,6 +10,8 @@ enum Types {
 }
 
 export class RecipeFormActions {
+  static initWithEmpty = createAction(Types.InitWithEmpty);
+
   static storeInitialValue = createAction(
     Types.StoreInitialValue,
     props<{ recipe: Recipe }>()

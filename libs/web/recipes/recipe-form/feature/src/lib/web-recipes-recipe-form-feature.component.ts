@@ -63,10 +63,13 @@ export class WebRecipesRecipeFormFeatureComponent implements OnChanges {
     private dialogService: DialogService
   ) {}
 
-  @Input() set recipe(_recipe: Recipe | undefined | null) {
-    if (!_recipe) return;
-    this.recipeForm.patchValue({ ..._recipe });
-    this.store.storeInitialValue(_recipe);
+  @Input() set recipe(_recipe: Recipe | null) {
+    if (!_recipe) {
+      this.store.initWithEmpty();
+    } else {
+      this.recipeForm.patchValue({ ..._recipe });
+      this.store.storeInitialValue(_recipe);
+    }
   }
 
   @Input() disabled: boolean | null = false;

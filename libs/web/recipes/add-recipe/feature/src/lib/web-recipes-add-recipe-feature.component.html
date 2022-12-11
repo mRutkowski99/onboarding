@@ -1,5 +1,6 @@
 <onboarding-feature-recipe-form
   [disabled]="formDisabled$ | async"
+  [recipe]="null"
   (save)="onSaveRecipe($event)"
   (dirty)="onDirtyChange($event)"
 ></onboarding-feature-recipe-form>

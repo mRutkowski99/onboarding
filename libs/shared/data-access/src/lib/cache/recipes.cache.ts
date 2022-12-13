@@ -15,6 +15,6 @@ export class RecipesCache extends Cache<Recipe[]> {
 
   get(): Recipe[] | null {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-    return this.hasValue() ? [...this.data!.value] : null;
+    return this.hasValue ? [...this.data!.value] : null;
   }
 }

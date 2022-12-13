@@ -4,14 +4,15 @@ import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 enum Types {
   GetRecipe = '[Edit Recipe] Get Recipe',
   GetRecipeSuccess = '[Edit Recipe] Get Recipe Success',
-  GetRecipeFail = '[Edit Recipe] Get REcipe Fail',
+  GetRecipeFail = '[Edit Recipe] Get Recipe Fail',
+  SubmitRecipeForm = '[Edit Recipe] Submit Recipe Form',
   UpdateRecipe = '[Edit Recipe] Update Recipe',
   UpdateRecipeSuccess = '[Edit Recipe] Update Recipe Success',
   UpdateRecipeFail = '[Edit Recipe] Update Recipe Fail',
 }
 
 export class EditRecipeActions {
-  static getRecipe = createAction(Types.GetRecipe, props<{ id: string }>());
+  static getRecipe = createAction(Types.GetRecipe);
 
   static getRecipeSuccess = createAction(
     Types.GetRecipeSuccess,
@@ -23,9 +24,14 @@ export class EditRecipeActions {
     props<{ error: string }>()
   );
 
+  static submitRecipeForm = createAction(
+    Types.SubmitRecipeForm,
+    props<{ payload: CreateUpdateRecipePayload }>()
+  );
+
   static updateRecipe = createAction(
     Types.UpdateRecipe,
-    props<{ id: string; payload: CreateUpdateRecipePayload }>()
+    props<{ payload: CreateUpdateRecipePayload; id: string }>()
   );
 
   static updateRecipeSuccess = createAction(Types.UpdateRecipeSuccess);

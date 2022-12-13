@@ -24,11 +24,12 @@ export class EditRecipeStoreFacade {
     }))
   );
 
-  getRecipeToUpdate(id: string) {
-    this.store.dispatch(EditRecipeActions.getRecipe({ id }));
+  getRecipeToUpdate() {
+    console.log('dispath');
+    this.store.dispatch(EditRecipeActions.getRecipe());
   }
 
-  updateRecipe(id: string, payload: CreateUpdateRecipePayload) {
-    this.store.dispatch(EditRecipeActions.updateRecipe({ id, payload }));
+  submitForm(payload: CreateUpdateRecipePayload) {
+    this.store.dispatch(EditRecipeActions.submitRecipeForm({ payload }));
   }
 }

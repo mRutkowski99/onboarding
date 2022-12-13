@@ -51,7 +51,8 @@ export class WebRecipesEditRecipeFeatureComponent
   dirty = false;
 
   ngOnInit(): void {
-    this.initStore();
+    this.store.getRecipeToUpdate();
+
     this.recipeUpdatedEventSubscription = this.eventBus.on(
       EventNameEnum.RecipeUpdated,
       () => (this.dirty = false)
@@ -59,7 +60,7 @@ export class WebRecipesEditRecipeFeatureComponent
   }
 
   onReload() {
-    this.initStore();
+    this.store.getRecipeToUpdate();
   }
 
   onDirtyChange(dirty: boolean) {
@@ -67,26 +68,11 @@ export class WebRecipesEditRecipeFeatureComponent
   }
 
   onSave(recipe: CreateUpdateRecipePayload) {
-    this.store.updateRecipe(
-      <string>this.route.snapshot.paramMap.get('id'),
-      recipe
-    );
+    this.store.submitForm(recipe);
   }
 
   ngOnDestroy(): void {
     this.idSubscription?.unsubscribe();
     this.recipeUpdatedEventSubscription?.unsubscribe();
-  }
-
-  private initStore() {
-    this.idSubscription = this.route.paramMap
-      .pipe(
-        map((paramMap) => paramMap.get('id')),
-        filter((id) => !!id)
-      )
-      .subscribe((id) => {
-        this.store.getRecipeToUpdate(<string>id);
-        this.dirty = false;
-      });
   }
 }

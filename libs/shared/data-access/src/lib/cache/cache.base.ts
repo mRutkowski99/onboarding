@@ -8,11 +8,11 @@ export abstract class Cache<T> {
   abstract store(data: T): void;
   abstract get(): T | null;
 
-  public hasValue(): boolean {
-    return this.data !== undefined && !this.hasExpired();
+  public get hasValue(): boolean {
+    return this.data !== undefined && !this.hasExpired;
   }
 
-  private hasExpired(): boolean {
+  private get hasExpired(): boolean {
     if (this.data === undefined) return true;
 
     return dayjs().isAfter(

@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { SharedUiRecipeDetailsComponent } from '@onboarding/shared/ui-recipe-details';
 import {
   RecipeDetailsStoreFacade,
@@ -57,7 +57,7 @@ export class WebRecipesRecipeDetailsFeatureComponent
   vm$ = this.store.vm$;
 
   ngOnInit(): void {
-    this.initRecipeDetails();
+    this.store.loadRecipeDetails();
 
     this.recipeDeletedEventSubscription = this.eventBus.on(
       EventNameEnum.RecipeDeleted,
@@ -68,8 +68,7 @@ export class WebRecipesRecipeDetailsFeatureComponent
   }
 
   onReload() {
-    const id = this.getIdFromSnapshot();
-    id ? this.store.loadRecipeDetails(id) : this.initRecipeDetails();
+    this.store.loadRecipeDetails();
   }
 
   onEdit() {
@@ -89,17 +88,6 @@ export class WebRecipesRecipeDetailsFeatureComponent
   ngOnDestroy(): void {
     this.idSubscription?.unsubscribe();
     this.recipeDeletedEventSubscription?.unsubscribe();
-  }
-
-  private initRecipeDetails() {
-    this.idSubscription = this.activatedRoute.paramMap
-      .pipe(
-        map((paramMap) => paramMap.get('id')),
-        filter((id) => !!id)
-      )
-      .subscribe((id) => {
-        this.store.loadRecipeDetails(<string>id);
-      });
   }
 
   private getIdFromSnapshot(): string | null {

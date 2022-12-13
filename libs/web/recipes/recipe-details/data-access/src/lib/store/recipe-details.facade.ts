@@ -15,8 +15,8 @@ export class RecipeDetailsStoreFacade {
     this.store.select(RecipeDetailsSelectors.errorSelector),
   ]).pipe(map(([recipe, status, error]) => ({ recipe, status, error })));
 
-  loadRecipeDetails(id: string) {
-    this.store.dispatch(RecipeDetailsActions.getRecipeDetails({ id }));
+  loadRecipeDetails() {
+    this.store.dispatch(RecipeDetailsActions.getRecipeDetails());
   }
 
   deteleRecipe(id: string) {

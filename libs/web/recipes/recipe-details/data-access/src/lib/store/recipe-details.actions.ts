@@ -10,10 +10,7 @@ enum Types {
 }
 
 export class RecipeDetailsActions {
-  static getRecipeDetails = createAction(
-    Types.GetRecipeDetails,
-    props<{ id: string }>()
-  );
+  static getRecipeDetails = createAction(Types.GetRecipeDetails);
 
   static getRecipeDetailsSuccess = createAction(
     Types.GetRecipeDetailsSuccess,

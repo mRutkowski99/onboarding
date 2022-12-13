@@ -25,7 +25,6 @@ export class EditRecipeStoreFacade {
   );
 
   getRecipeToUpdate() {
-    console.log('dispath');
     this.store.dispatch(EditRecipeActions.getRecipe());
   }
 

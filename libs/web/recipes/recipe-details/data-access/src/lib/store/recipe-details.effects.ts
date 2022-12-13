@@ -30,7 +30,7 @@ export class RecipeDetailsEfects {
       ofType(RecipeDetailsActions.getRecipeDetails),
       switchMap(() => this.store.select(recipeIdSelector)),
       fetch({
-        run: ({ id }) =>
+        run: (id) =>
           this.apiService
             .getRecipeDetails(id)
             .pipe(
@@ -38,7 +38,6 @@ export class RecipeDetailsEfects {
                 RecipeDetailsActions.getRecipeDetailsSuccess({ data })
               )
             ),
-
         onError: () =>
           RecipeDetailsActions.getrecipeDetailsFail({
             error: 'An error occured while getting the recipe details',

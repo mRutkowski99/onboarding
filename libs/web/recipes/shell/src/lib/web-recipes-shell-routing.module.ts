@@ -8,12 +8,18 @@ import {
   UnsubmittedFormGuard,
   UnsubmittedFormGuardModule,
 } from '@onboarding/web/shared/util';
+import { WebRecipesUiNotSelectedComponent } from '@onboarding/web/recipes/ui-not-selected';
 
 const routes: Routes = [
   {
     path: '',
     component: RecipesShellContainerComponent,
     children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: WebRecipesUiNotSelectedComponent,
+      },
       {
         path: 'add',
         pathMatch: 'full',

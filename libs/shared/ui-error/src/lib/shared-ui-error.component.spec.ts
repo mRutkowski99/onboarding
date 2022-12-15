@@ -1,4 +1,6 @@
+import { DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 
 import { SharedUiErrorComponent } from './shared-ui-error.component';
 
@@ -16,7 +18,17 @@ describe('SharedUiErrorComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  test('should emit #reload after click on button', () => {
+    const button = fixture.debugElement.query(By.css('button'));
+    jest.spyOn(component.reload, 'emit');
+
+    button.triggerEventHandler('click');
+    fixture.detectChanges();
+
+    expect(component.reload.emit).toBeCalled();
   });
 });

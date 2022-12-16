@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@onboarding/api/recipes": ["libs/api/recipes/src/index.ts"],
       "@onboarding/shared/data-access": [
         "libs/shared/data-access/src/index.ts"
       ],

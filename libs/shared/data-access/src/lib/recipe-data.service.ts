@@ -24,10 +24,8 @@ export class RecipeDataService {
   }
 
   getById(id: string): Observable<Recipe> {
-    const fromCache = this.cache.getSingle(id);
-
-    return fromCache
-      ? of(fromCache)
+    return this.cache.hasSingleValue(id)
+      ? of(this.cache.getSingle(id)!)
       : this.http.get<Recipe>(this.indexedResourceUrl(id));
   }
 

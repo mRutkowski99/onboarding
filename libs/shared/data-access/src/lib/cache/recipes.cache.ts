@@ -21,4 +21,8 @@ export class RecipesCache extends Cache<Recipe[]> {
   getSingle(id: string): Recipe | null {
     return this.data?.value.find((recipe) => recipe._id === id) || null;
   }
+
+  hasSingleValue(id: string): boolean {
+    return !!this.data?.value.some((recipe) => recipe._id === id);
+  }
 }

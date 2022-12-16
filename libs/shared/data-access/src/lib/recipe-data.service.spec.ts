@@ -1,11 +1,11 @@
 import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 import { of } from 'rxjs';
-
 import { RecipeDataService } from './recipe-data.service';
 
 describe('RecipeDataService', () => {
   let service: RecipeDataService;
   let httpClientMock: any;
+  let recipeCacheMock: any;
   const baseUrl = 'testurl';
 
   const recipes: Recipe[] = [
@@ -36,21 +36,51 @@ describe('RecipeDataService', () => {
       delete: jest.fn(),
     };
 
-    service = new RecipeDataService(httpClientMock, baseUrl);
+    recipeCacheMock = {
+      store: jest.fn(),
+      get: jest.fn(),
+      getSingle: jest.fn(),
+      hasValue: jest.fn(),
+    };
+
+    service = new RecipeDataService(httpClientMock, baseUrl, recipeCacheMock);
   });
 
   test('should be created', () => {
     expect(service).toBeTruthy();
   });
 
-  test('should return all recipes', () => {
+  test('should return all recipes and omit cache', () => {
     jest.spyOn(httpClientMock, 'get').mockReturnValue(of(recipes));
+    jest.spyOn(recipeCacheMock, 'get');
+
+    service.getAll(true).subscribe((result) => expect(result).toBe(recipes));
+
+    expect(httpClientMock.get).toBeCalledWith(baseUrl);
+    expect(recipeCacheMock.get).not.toBeCalled();
+  });
+
+  test('should return all recipes from cache', () => {
+    jest.spyOn(httpClientMock, 'get');
+    jest.spyOn(recipeCacheMock, 'hasValue').mockReturnValue(true);
+    jest.spyOn(recipeCacheMock, 'get').mockReturnValue(of(recipes));
+
     service.getAll().subscribe((result) => expect(result).toBe(recipes));
-    expect(httpClientMock.get).toBeCalled();
+    expect(recipeCacheMock.get).toBeCalled();
+    expect(httpClientMock.get).not.toBeCalled();
+  });
+
+  test('should return all recipes from http client', () => {
+    jest.spyOn(httpClientMock, 'get').mockReturnValue(of(recipes));
+    jest.spyOn(recipeCacheMock, 'hasValue', 'get').mockReturnValue(false);
+    jest.spyOn(recipeCacheMock, 'get');
+
+    service.getAll().subscribe((result) => expect(result).toBe(recipes));
+    expect(recipeCacheMock.get).not.toBeCalled();
     expect(httpClientMock.get).toBeCalledWith(baseUrl);
   });
 
-  test('should return recipe by id', () => {
+  test('should return recipe by id from httpClient', () => {
     const recipe = recipes[0];
     const id = recipe._id;
 

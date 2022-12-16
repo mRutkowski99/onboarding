@@ -8,7 +8,7 @@ export class UniqueRecipeNameService {
 
   isNameUnique(name: string): Observable<boolean> {
     return this.apiService
-      .getAll()
+      .getAll(true)
       .pipe(map((recipes) => recipes.every((recipe) => recipe.name !== name)));
   }
 }

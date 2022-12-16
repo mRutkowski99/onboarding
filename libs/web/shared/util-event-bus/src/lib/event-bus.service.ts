@@ -14,6 +14,15 @@ export class EventBusService {
       .subscribe(action);
   }
 
+  aggregateEvents(
+    events: EventNameEnum[],
+    action: (arg: Event) => void
+  ): Subscription {
+    return this.subject
+      .pipe(filter((event) => events.includes(event.name)))
+      .subscribe(action);
+  }
+
   emit(event: Event) {
     this.subject.next(event);
   }

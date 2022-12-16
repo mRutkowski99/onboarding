@@ -25,9 +25,9 @@ export class RecipesListEffects {
     this.actions$.pipe(
       ofType(RecipesListActions.getRecipesList),
       fetch({
-        run: () => {
+        run: ({ omitCache }) => {
           return this.apiService
-            .listAllRecipes()
+            .listAllRecipes(omitCache)
             .pipe(
               map((data) => RecipesListActions.getRecipesListSuccess({ data }))
             );
@@ -50,7 +50,7 @@ export class RecipesListEffects {
             map(() => {
               this.eventBus.emit(new Event(EventNameEnum.RecipeDeleted, id));
               this.snackbar.success('Recipe successfully deleted');
-              return RecipesListActions.getRecipesList();
+              return RecipesListActions.getRecipesList({ omitCache: true });
             })
           );
         },

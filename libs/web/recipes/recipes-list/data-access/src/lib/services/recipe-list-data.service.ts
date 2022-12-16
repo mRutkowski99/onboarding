@@ -7,8 +7,8 @@ import { Observable } from 'rxjs';
 export class RecipeListDataService {
   constructor(private apiService: RecipeDataService) {}
 
-  listAllRecipes(): Observable<Recipe[]> {
-    return this.apiService.getAll();
+  listAllRecipes(omitCache = false): Observable<Recipe[]> {
+    return this.apiService.getAll(omitCache);
   }
 
   deleteRecipe(id: string): Observable<void> {

@@ -6,7 +6,8 @@ enum Types {
   StoreInitialValue = '[Recipe Form] Store Initial Value',
   AddIngredient = '[Recipe Form] Add Ingredient',
   DeleteIngredient = '[Recipe Form] Delete Ingredient',
-  EditIngredient = '[Edit Ingredient] Edit Ingredient',
+  EditIngredient = '[Recipe Form] Edit Ingredient',
+  ResetState = '[Recipe Form] Reset State',
 }
 
 export class RecipeFormActions {
@@ -31,4 +32,6 @@ export class RecipeFormActions {
     Types.EditIngredient,
     props<{ ingredient: Ingredient }>()
   );
+
+  static resetState = createAction(Types.ResetState);
 }

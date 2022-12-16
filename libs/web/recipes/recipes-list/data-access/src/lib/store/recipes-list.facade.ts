@@ -30,8 +30,8 @@ export class RecipesListStoreFacade {
     this.store.select(RecipesListSelectors.filterTypeSelector),
   ]).pipe(map(([filter, filterType]) => ({ filter, filterType })));
 
-  getRecipesList() {
-    this.store.dispatch(RecipesListActions.getRecipesList());
+  getRecipesList(omitCache = false) {
+    this.store.dispatch(RecipesListActions.getRecipesList({ omitCache }));
   }
 
   deleteRecipe(id: string) {

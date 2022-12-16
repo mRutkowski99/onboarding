@@ -4,6 +4,7 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnDestroy,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -35,7 +36,7 @@ import {
 } from '@onboarding/web/shared/util-dialog-service';
 import { AddEditIngredientDialogComponent } from '@onboarding/web/recipes/recipe-form/ui-add-edit-ingredient-dialog';
 import { isDirty } from '@onboarding/shared/util';
-import { combineLatest, map } from 'rxjs';
+import { Subscription, combineLatest, map } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -56,7 +57,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./web-recipes-recipe-form-feature.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WebRecipesRecipeFormFeatureComponent implements OnChanges {
+export class WebRecipesRecipeFormFeatureComponent
+  implements OnChanges, OnDestroy
+{
   constructor(
     private store: RecipeFormStoreFacade,
     private router: Router,
@@ -75,6 +78,8 @@ export class WebRecipesRecipeFormFeatureComponent implements OnChanges {
   @Input() disabled: boolean | null = false;
 
   @Output() save = new EventEmitter<CreateUpdateRecipePayload>();
+
+  private ingredientsSubscription: Subscription | undefined;
 
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
@@ -151,16 +156,22 @@ export class WebRecipesRecipeFormFeatureComponent implements OnChanges {
   }
 
   onSubmit() {
-    const subscription = this.ingredients$.subscribe((ingredients) => {
-      this.save.emit({
-        ...this.recipeForm.getRawValue(),
-        ingredients: [...ingredients],
-      });
-      subscription.unsubscribe();
-    });
+    this.ingredientsSubscription = this.ingredients$.subscribe(
+      (ingredients) => {
+        this.save.emit({
+          ...this.recipeForm.getRawValue(),
+          ingredients: [...ingredients],
+        });
+      }
+    );
   }
 
   onCancel() {
     this.router.navigate(['']);
+  }
+
+  ngOnDestroy(): void {
+    this.ingredientsSubscription?.unsubscribe();
+    this.store.resetState();
   }
 }

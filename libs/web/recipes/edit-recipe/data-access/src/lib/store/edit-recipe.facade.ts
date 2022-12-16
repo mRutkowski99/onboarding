@@ -31,4 +31,8 @@ export class EditRecipeStoreFacade {
   submitForm(payload: CreateUpdateRecipePayload) {
     this.store.dispatch(EditRecipeActions.submitRecipeForm({ payload }));
   }
+
+  resetState() {
+    this.store.dispatch(EditRecipeActions.resetState());
+  }
 }

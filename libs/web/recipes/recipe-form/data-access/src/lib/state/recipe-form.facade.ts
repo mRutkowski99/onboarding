@@ -42,4 +42,8 @@ export class RecipeFormStoreFacade {
   editIngredient(ingredient: Ingredient) {
     this.store.dispatch(RecipeFormActions.editIngredient({ ingredient }));
   }
+
+  resetState() {
+    this.store.dispatch(RecipeFormActions.resetState());
+  }
 }

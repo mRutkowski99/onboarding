@@ -42,7 +42,8 @@ export const recipeFormReducer = createReducer(
   ),
   on(RecipeFormActions.editIngredient, (state, { ingredient }) =>
     editIngredient(state, ingredient)
-  )
+  ),
+  on(RecipeFormActions.resetState, () => ({ ...initialState }))
 );
 
 const deleteIngredient = (

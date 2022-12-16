@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormContainerComponent } from '@onboarding/web/shared/util';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WebRecipesRecipeFormFeatureComponent } from '@onboarding/web/recipes/recipe-form/feature';
 import {
   EditRecipeStoreFacade,
@@ -16,7 +16,7 @@ import {
   EventBusService,
   EventNameEnum,
 } from '@onboarding/web/shared/util-event-bus';
-import { filter, map, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import { CreateUpdateRecipePayload } from '@onboarding/shared/domain';
 import { SharedUiLoadingComponent } from '@onboarding/shared/ui-loading';
 import { SharedUiErrorComponent } from '@onboarding/shared/ui-error';
@@ -39,13 +39,14 @@ export class WebRecipesEditRecipeFeatureComponent
   implements FormContainerComponent, OnInit, OnDestroy
 {
   constructor(
-    private route: ActivatedRoute,
     private store: EditRecipeStoreFacade,
-    private eventBus: EventBusService
+    private eventBus: EventBusService,
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
-  private idSubscription: Subscription | undefined;
   private recipeUpdatedEventSubscription: Subscription | undefined;
+  private recipeDeletedEventSubscription: Subscription | undefined;
 
   vm$ = this.store.vm$;
   dirty = false;
@@ -56,6 +57,14 @@ export class WebRecipesEditRecipeFeatureComponent
     this.recipeUpdatedEventSubscription = this.eventBus.on(
       EventNameEnum.RecipeUpdated,
       () => (this.dirty = false)
+    );
+
+    this.recipeDeletedEventSubscription = this.eventBus.on(
+      EventNameEnum.RecipeDeleted,
+      (id) => {
+        if (id === this.route.snapshot.paramMap.get('id'))
+          this.router.navigate(['']);
+      }
     );
   }
 
@@ -72,7 +81,8 @@ export class WebRecipesEditRecipeFeatureComponent
   }
 
   ngOnDestroy(): void {
-    this.idSubscription?.unsubscribe();
+    this.recipeDeletedEventSubscription?.unsubscribe();
     this.recipeUpdatedEventSubscription?.unsubscribe();
+    this.store.resetState();
   }
 }

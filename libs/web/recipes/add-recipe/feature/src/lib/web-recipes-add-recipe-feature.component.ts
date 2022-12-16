@@ -51,6 +51,7 @@ export class WebRecipesAddRecipeFeatureComponent
 
   ngOnDestroy(): void {
     this.formSubmittedEventSubscription?.unsubscribe();
+    this.store.resetState();
   }
 
   onSaveRecipe(recipe: CreateUpdateRecipePayload) {

@@ -14,4 +14,8 @@ export class AddRecipeStoreFacade {
   createRecipe(payload: CreateUpdateRecipePayload) {
     this.store.dispatch(AddRecipeActions.createRecipe({ payload }));
   }
+
+  resetState() {
+    this.store.dispatch(AddRecipeActions.resetState());
+  }
 }

@@ -9,6 +9,7 @@ enum Types {
   UpdateRecipe = '[Edit Recipe] Update Recipe',
   UpdateRecipeSuccess = '[Edit Recipe] Update Recipe Success',
   UpdateRecipeFail = '[Edit Recipe] Update Recipe Fail',
+  ResetState = '[Edit Recipe] Reset State',
 }
 
 export class EditRecipeActions {
@@ -37,4 +38,6 @@ export class EditRecipeActions {
   static updateRecipeSuccess = createAction(Types.UpdateRecipeSuccess);
 
   static updateRecipeFail = createAction(Types.UpdateRecipeFail);
+
+  static resetState = createAction(Types.ResetState);
 }

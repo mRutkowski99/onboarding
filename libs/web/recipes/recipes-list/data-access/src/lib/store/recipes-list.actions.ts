@@ -12,7 +12,10 @@ enum Types {
 }
 
 export class RecipesListActions {
-  static getRecipesList = createAction(Types.GetRecipesList);
+  static getRecipesList = createAction(
+    Types.GetRecipesList,
+    props<{ omitCache?: boolean }>()
+  );
 
   static getRecipesListFail = createAction(
     Types.GetRecipesListFail,

@@ -40,5 +40,6 @@ export const editRecipeReducer = createReducer(
   on(EditRecipeActions.updateRecipeFail, (state) => ({
     ...state,
     formDisabled: false,
-  }))
+  })),
+  on(EditRecipeActions.resetState, () => ({ ...initialState }))
 );

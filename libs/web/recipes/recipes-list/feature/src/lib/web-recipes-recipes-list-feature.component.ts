@@ -54,7 +54,7 @@ export class WebRecipesRecipesListFeatureComponent
     private dialogService: DialogService
   ) {}
 
-  private recipeDeletedEventSubscription: Subscription | undefined;
+  private recipeCrudEventsSubscription: Subscription | undefined;
 
   vm$ = this.store.vm$;
   filter$ = this.store.filter$;
@@ -62,9 +62,13 @@ export class WebRecipesRecipesListFeatureComponent
   ngOnInit() {
     this.store.getRecipesList();
 
-    this.recipeDeletedEventSubscription = this.eventBus.on(
-      EventNameEnum.RecipeDeleted,
-      () => this.store.getRecipesList()
+    this.recipeCrudEventsSubscription = this.eventBus.aggregateEvents(
+      [
+        EventNameEnum.RecipeDeleted,
+        EventNameEnum.RecipeCreated,
+        EventNameEnum.RecipeUpdated,
+      ],
+      () => this.store.getRecipesList(true)
     );
   }
 
@@ -105,6 +109,6 @@ export class WebRecipesRecipesListFeatureComponent
   }
 
   ngOnDestroy(): void {
-    this.recipeDeletedEventSubscription?.unsubscribe();
+    this.recipeCrudEventsSubscription?.unsubscribe();
   }
 }

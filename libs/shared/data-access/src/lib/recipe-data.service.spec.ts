@@ -1,6 +1,10 @@
+import { TestBed } from '@angular/core/testing';
 import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 import { of } from 'rxjs';
 import { RecipeDataService } from './recipe-data.service';
+import { RecipesCache } from './cache/recipes.cache';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { API_URL } from './shared-data-access.module';
 
 describe('RecipeDataService', () => {
   let service: RecipeDataService;
@@ -31,16 +35,17 @@ describe('RecipeDataService', () => {
   beforeEach(() => {
     httpClientMock = {
       get: jest.fn(),
-      put: jest.fn(),
       post: jest.fn(),
+      put: jest.fn(),
       delete: jest.fn(),
     };
 
     recipeCacheMock = {
-      store: jest.fn(),
       get: jest.fn(),
+      store: jest.fn(),
+      hasSingleValue: jest.fn(),
       getSingle: jest.fn(),
-      hasValue: jest.fn(),
+      hasValue: true,
     };
 
     service = new RecipeDataService(httpClientMock, baseUrl, recipeCacheMock);
@@ -62,20 +67,22 @@ describe('RecipeDataService', () => {
 
   test('should return all recipes from cache', () => {
     jest.spyOn(httpClientMock, 'get');
-    jest.spyOn(recipeCacheMock, 'hasValue').mockReturnValue(true);
-    jest.spyOn(recipeCacheMock, 'get').mockReturnValue(of(recipes));
+    recipeCacheMock.hasValue = true;
+    jest.spyOn(recipeCacheMock, 'get').mockReturnValue(recipes);
 
     service.getAll().subscribe((result) => expect(result).toBe(recipes));
+
     expect(recipeCacheMock.get).toBeCalled();
     expect(httpClientMock.get).not.toBeCalled();
   });
 
   test('should return all recipes from http client', () => {
     jest.spyOn(httpClientMock, 'get').mockReturnValue(of(recipes));
-    jest.spyOn(recipeCacheMock, 'hasValue', 'get').mockReturnValue(false);
+    recipeCacheMock.hasValue = false;
     jest.spyOn(recipeCacheMock, 'get');
 
     service.getAll().subscribe((result) => expect(result).toBe(recipes));
+
     expect(recipeCacheMock.get).not.toBeCalled();
     expect(httpClientMock.get).toBeCalledWith(baseUrl);
   });

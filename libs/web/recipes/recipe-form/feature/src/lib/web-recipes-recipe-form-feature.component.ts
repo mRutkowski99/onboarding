@@ -1,10 +1,12 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   EventEmitter,
   Input,
   OnChanges,
   OnDestroy,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
@@ -28,6 +30,7 @@ import {
 import {
   createUniqueNameValidator,
   RecipeFormStoreFacade,
+  UniqueRecipeNameService,
   WebRecipesRecipeFormDataAccessModule,
 } from '@onboarding/web/recipes/recipe-form/data-access';
 import {
@@ -38,6 +41,10 @@ import { AddEditIngredientDialogComponent } from '@onboarding/web/recipes/recipe
 import { isDirty } from '@onboarding/shared/util';
 import { Subscription, combineLatest, map } from 'rxjs';
 import { Router } from '@angular/router';
+import {
+  EventBusService,
+  EventNameEnum,
+} from '@onboarding/web/shared/util-event-bus';
 
 @Component({
   selector: 'onboarding-feature-recipe-form',
@@ -58,28 +65,26 @@ import { Router } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class WebRecipesRecipeFormFeatureComponent
-  implements OnChanges, OnDestroy
+  implements OnChanges, OnInit, OnDestroy
 {
   constructor(
     private store: RecipeFormStoreFacade,
     private router: Router,
-    private dialogService: DialogService
+    private dialogService: DialogService,
+    private eventBus: EventBusService,
+    private dataService: UniqueRecipeNameService
   ) {}
 
   @Input() set recipe(_recipe: Recipe | null) {
-    if (!_recipe) {
-      this.store.initWithEmpty();
-    } else {
-      this.recipeForm.patchValue({ ..._recipe });
-      this.store.storeInitialValue(_recipe);
-    }
+    _recipe ? this.store.storeInitialValue(_recipe) : this.store.resetState();
   }
 
   @Input() disabled: boolean | null = false;
 
   @Output() save = new EventEmitter<CreateUpdateRecipePayload>();
 
-  private ingredientsSubscription: Subscription | undefined;
+  private recipeInitialValueSubscription: Subscription | undefined;
+  private recipeCreatedEventSubscription: Subscription | undefined;
 
   ingredients$ = this.store.ingredients$;
   isNotEnoughIngredients$ = this.store.isNotEnoughIngredients$;
@@ -92,7 +97,7 @@ export class WebRecipesRecipeFormFeatureComponent
         Validators.minLength(3),
         Validators.maxLength(80),
       ],
-      asyncValidators: [createUniqueNameValidator()],
+      asyncValidators: [createUniqueNameValidator(this.dataService)],
     }),
     preparationTimeInMinutes: new FormControl(30, {
       nonNullable: true,
@@ -121,6 +126,21 @@ export class WebRecipesRecipeFormFeatureComponent
     if (changes['disabled']) {
       this.disabled ? this.recipeForm.disable() : this.recipeForm.enable();
     }
+  }
+
+  ngOnInit(): void {
+    this.recipeInitialValueSubscription =
+      this.store.recipeInitialValue$.subscribe((recipe) => {
+        this.recipeForm.patchValue({ ...recipe });
+      });
+
+    this.recipeCreatedEventSubscription = this.eventBus.on(
+      EventNameEnum.RecipeCreated,
+      () => {
+        this.store.resetState();
+        this.recipeForm.reset();
+      }
+    );
   }
 
   onAddIngredient() {
@@ -156,14 +176,10 @@ export class WebRecipesRecipeFormFeatureComponent
   }
 
   onSubmit() {
-    this.ingredientsSubscription = this.ingredients$.subscribe(
-      (ingredients) => {
-        this.save.emit({
-          ...this.recipeForm.getRawValue(),
-          ingredients: [...ingredients],
-        });
-      }
-    );
+    this.save.emit({
+      ...this.recipeForm.getRawValue(),
+      ingredients: [...this.store.ingredients],
+    });
   }
 
   onCancel() {
@@ -171,7 +187,8 @@ export class WebRecipesRecipeFormFeatureComponent
   }
 
   ngOnDestroy(): void {
-    this.ingredientsSubscription?.unsubscribe();
+    this.recipeInitialValueSubscription?.unsubscribe();
+    this.recipeCreatedEventSubscription?.unsubscribe();
     this.store.resetState();
   }
 }

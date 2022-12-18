@@ -15,7 +15,7 @@ import { CustomSerializer } from '@onboarding/shared/data-access';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot([]),
+    RouterModule.forRoot([], { onSameUrlNavigation: 'reload' }),
     StoreModule.forRoot({ router: routerReducer }),
     StoreRouterConnectingModule.forRoot({ serializer: CustomSerializer }),
     EffectsModule.forRoot(),

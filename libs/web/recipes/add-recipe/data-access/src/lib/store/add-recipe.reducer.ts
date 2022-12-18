@@ -15,5 +15,6 @@ export const addRecipeReducer = createReducer(
   initialState,
   on(AddRecipeActions.createRecipe, () => ({ formDisabled: true })),
   on(AddRecipeActions.createRecipeFail, () => ({ formDisabled: false })),
+  on(AddRecipeActions.createRecipeSuccess, () => ({ formDisabled: false })),
   on(AddRecipeActions.resetState, () => ({ ...initialState }))
 );

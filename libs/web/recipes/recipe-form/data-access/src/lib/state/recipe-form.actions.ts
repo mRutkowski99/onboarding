@@ -11,8 +11,6 @@ enum Types {
 }
 
 export class RecipeFormActions {
-  static initWithEmpty = createAction(Types.InitWithEmpty);
-
   static storeInitialValue = createAction(
     Types.StoreInitialValue,
     props<{ recipe: Recipe }>()

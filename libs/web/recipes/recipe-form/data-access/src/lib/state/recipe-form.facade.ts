@@ -10,6 +10,8 @@ import { RecipeFormSelectors } from './recipe-form.selectors';
 export class RecipeFormStoreFacade {
   constructor(private store: Store<RecipeFormState>) {}
 
+  ingredients: Ingredient[] = [];
+
   ingredients$ = this.store.select(RecipeFormSelectors.ingredientsSelector);
   recipeInitialValue$ = this.store.select(
     RecipeFormSelectors.recipeInitialValueSelector
@@ -23,12 +25,12 @@ export class RecipeFormStoreFacade {
     RecipeFormSelectors.hasIngredientsBeenModifiedSelector
   );
 
+  private _ = this.ingredients$.subscribe(
+    (ingredients) => (this.ingredients = [...ingredients])
+  );
+
   storeInitialValue(recipe: Recipe) {
     this.store.dispatch(RecipeFormActions.storeInitialValue({ recipe }));
-  }
-
-  initWithEmpty() {
-    this.store.dispatch(RecipeFormActions.initWithEmpty());
   }
 
   addIngredient(ingredient: Ingredient) {

@@ -29,16 +29,25 @@ describe('SharedUiIngredientChipComponent', () => {
   });
 
   test('should display ingredient name and quantity', () => {
-    const spanDE = fixture.debugElement.query(By.css('span'));
-    const span: HTMLElement = spanDE.nativeElement;
+    const span = fixture.debugElement.query(By.css('span')).nativeElement;
 
     expect(span.textContent).toBe(
       `${ingredient.name} - ${ingredient.quantity}`
     );
   });
 
+  test('should not have buttons disabled', () => {
+    fixture.componentRef.setInput('disabled', false);
+    fixture.detectChanges();
+
+    const buttons = fixture.debugElement.queryAll(By.css('button'));
+    buttons.forEach((btn) => {
+      expect(btn.properties['disabled']).toBe(false);
+    });
+  });
+
   test('should have buttons disabled', () => {
-    component.disabled = true;
+    fixture.componentRef.setInput('disabled', true);
     fixture.detectChanges();
 
     const buttons = fixture.debugElement.queryAll(By.css('button'));

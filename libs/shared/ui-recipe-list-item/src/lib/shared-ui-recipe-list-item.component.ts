@@ -30,7 +30,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 })
 export class SharedUiRecipeListItemComponent {
   @Input() recipe: RecipeListItem | undefined;
-  @Input() isSelected = true;
+  @Input() isSelected = false;
   @Output() delete = new EventEmitter<string>();
   @Output() edit = new EventEmitter<string>();
   @Output() selected = new EventEmitter<string>();

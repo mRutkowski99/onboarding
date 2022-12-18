@@ -1,10 +1,6 @@
-import { TestBed } from '@angular/core/testing';
 import { CreateUpdateRecipePayload, Recipe } from '@onboarding/shared/domain';
 import { of } from 'rxjs';
 import { RecipeDataService } from './recipe-data.service';
-import { RecipesCache } from './cache/recipes.cache';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { API_URL } from './shared-data-access.module';
 
 describe('RecipeDataService', () => {
   let service: RecipeDataService;
